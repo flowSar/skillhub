@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.horizontal-list {
+    @apply text-center;
+}
+
+.horizontal-list li {
+    @apply inline-block text-lg px-2 py-2 hover:bg-gray-200 cursor-pointer w-[6rem] sm:w-auto;
+}
+
+.horizontal-list li a {
+    @apply text-sm sm:text-lg
+}
+
+.categories-list {
+    @apply w-full font-serif;
+}
+
+.categories-list li {
+    @apply w-full hover:bg-gray-300 hover:underline px-2 text-center
+}
+
+.input-style {
+    @apply p-2 pl-4 border border-slate-500 focus:outline-none;
+}
+
+.button-style {
+    @apply bg-white font-semibold rounded-xl py-3 px-10 border-2 border-slate-600 hover:bg-slate-300;
+}
