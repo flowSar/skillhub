@@ -6,6 +6,7 @@ import "./index.css";
 import SignUp from "./pages/SignUp.jsx";
 import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
+import Profile from "./pages/Profile.jsx";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
     path: "/contact",
     element: <Contact />,
   },
+  {
+    path: "/profile",
+    element: <Profile/>
+  }
 ]);
 
 createRoot(document.getElementById("root")).render(
