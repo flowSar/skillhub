@@ -1,13 +1,13 @@
 #!/usr/bin/python3
-from flask import jsonify
+import requests
+from flask import jsonify, request, abort
 from . import app_view
+
+from firebase.firebase_service import firebase, Customer, ServiceProvider, get_all_service_providers, upload_img
 
 
 @app_view.route('/users')
-def get_users():
+def get_service_providers():
     # Example: returning a list of users
-    users = [
-        {"id": 1, "name": "John Doe"},
-        {"id": 2, "name": "Jane Doe"}
-    ]
-    return jsonify(users)
+    return jsonify(get_all_service_providers())
+

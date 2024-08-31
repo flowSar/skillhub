@@ -1,0 +1,165 @@
+#!/usr/bin/python3
+import pyrebase
+from firebase.config import firebaseConfig
+from datetime import datetime
+import json
+
+
+firebase = pyrebase.initialize_app(firebaseConfig)
+
+class Customer:
+
+    def __init__(self, username, email, password):
+        self.__username = username
+        self.__email = email
+        self.__password = password
+        self.auth = firebase.auth()
+        self.db = firebase.database()
+    
+    def create_user(self):
+        try:
+            user = self.auth.create_user_with_email_and_password(self.__email, self.__password)
+            if user:
+                return True
+            else:
+                return False
+        except:
+            return False
+    
+    def sign_in(self):
+        try:
+            user = self.auth.sign_in_with_email_and_password(self.__email, self.__password)
+            return user
+        except Exception as e:
+            return False
+
+
+    def create_account(self, user):
+        try:
+            id_token = user['idToken']
+            uid = user['localId']
+            if user:
+                user_data = {
+                    "uid": uid,
+                    "username": self.__username,
+                    "email": self.__email,
+                    "created_at": datetime.now().isoformat(),
+                    "updated_at": datetime.now().isoformat(),
+                    }
+                self.db.child('users').child(uid).set(user_data, id_token)
+                return True
+        except Exception as e:
+            print(e)
+            return False
+
+class ServiceProvider:
+
+    def __init__(self, first_name,
+                 last_name, email,
+                 password, address,
+                 phone_number, city,
+                 country, working_days,
+                 services, description,
+                 profile_img="",
+                 thumbnail_img=""
+                 ):
+        self.__first_name = first_name
+        self.__last_name = last_name
+        self.__email = email
+        self.__password = password
+        self.__address = address
+        self.__phone_number = phone_number
+        self.__city = city
+        self.__country = country
+        self.__working_days = working_days
+        self.__services = services
+        self.__description = description
+        self.__profile_img = profile_img
+        self.__thumbnail_img = thumbnail_img
+        self.auth = firebase.auth()
+        self.db = firebase.database()
+
+    def create_user(self):
+        try:
+            user = self.auth.create_user_with_email_and_password(self.__email, self.__password)
+            if user:
+                return True
+            else:
+                return False
+        except:
+            return False
+
+    def sign_in(self):
+        try:
+            user = self.auth.sign_in_with_email_and_password(self.__email, self.__password)
+            return user
+        except Exception as e:
+            return False
+
+    def create_account(self, user):
+        try:
+            user = self.auth.refresh(user['refreshToken'])
+            id_token = user['idToken']
+            uid = user['localId']
+            if user:
+                user_data = {
+                    "uid": uid,
+                    "first_name": self.__first_name,
+                    "last_name": self.__last_name,
+                    "email": self.__email,
+                    "address": self.__address,
+                    "phone_number": self.__phone_number,
+                    "city": self.__city,
+                    "country": self.__country,
+                    "working_days": self.__working_days,
+                    "services": self.__services,
+                    "description": self.__description,
+                    "profile_img": self.__profile_img,
+                    "thumbnail_img": self.__thumbnail_img,
+                    "created_at": datetime.now().isoformat(),
+                    "updated_at": datetime.now().isoformat(),
+                    }
+                self.db.child('service_providers').child(uid).set(user_data, id_token)
+                return True
+        except Exception as e:
+            print(e)
+            return False
+
+def get_all_service_providers():
+    auth = firebase.auth()
+    db = firebase.database()
+    user = auth.sign_in_with_email_and_password('khalid.mahsousi@gmail.com', '123456789')
+    user = auth.refresh(user['refreshToken'])
+    user_token = user['idToken']
+    users_id = db.child('service_providers').get(user_token)
+    data = []
+    for id in users_id:
+        service_providers = db.child('service_providers').child(id.key()).get(user_token)
+        user_data = {}
+        for sp in service_providers:
+            if sp.key() == 'uid':
+                continue
+            user_data[sp.key()] = sp.val()
+        data.append(user_data)
+    return data
+    # print(data)
+
+
+def upload_img(path, image):
+    if image:
+        storage = firebase.storage()
+        try:
+            storage.child(path).put(image)
+            image_url = storage.child(path).get_url(image)
+            return image_url
+        except Exception as e:
+            print(f"errro uplading image: {e}")
+ 
+    else:
+        return None
+
+# user = User("khalid mahsousi", "khalid.mahsousi@gmail.com", '123456789')
+# user.create_user()
+# user.create_account()
+# sv = ServiceProvider('ali', 'sata', 'ali.sata@gmail.com', 'werr567er', 'agadir ait mezal', '069876543224', 'agadir', 'morocco', ['monday', 'friday', 'saturday', 'sunday'], ['cleaning Homes', 'cleaning cars'], 'I work deligently')
+
