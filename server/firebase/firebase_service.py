@@ -9,13 +9,19 @@ firebase = pyrebase.initialize_app(firebaseConfig)
 
 class Customer:
 
-    def __init__(self, username, email, password):
+    def __init__(self, username, email, password, gender):
         self.__username = username
         self.__email = email
         self.__password = password
+        self.__gender = gender
         self.auth = firebase.auth()
         self.db = firebase.database()
+        if self.__gender == 'Male':
+            self.__profile_img = 'https://avatar.iran.liara.run/public/boy'
+        else:
+            self.__profile_img = 'https://avatar.iran.liara.run/public/girl'
     
+
     def create_user(self):
         try:
             user = self.auth.create_user_with_email_and_password(self.__email, self.__password)
@@ -43,6 +49,8 @@ class Customer:
                     "uid": uid,
                     "username": self.__username,
                     "email": self.__email,
+                    "gender": self.__gender,
+                    "profile_img": self.__profile_img,
                     "created_at": datetime.now().isoformat(),
                     "updated_at": datetime.now().isoformat(),
                     }
@@ -59,9 +67,10 @@ class ServiceProvider:
                  password, address,
                  phone_number, city,
                  country, working_days,
-                 services, description,
+                 services, sub_service,description,
+                 gender,
                  profile_img="",
-                 thumbnail_img=""
+                 thumbnail_img="",
                  ):
         self.__first_name = first_name
         self.__last_name = last_name
@@ -73,9 +82,16 @@ class ServiceProvider:
         self.__country = country
         self.__working_days = working_days
         self.__services = services
+        self.__sub_service = sub_service
         self.__description = description
+        self.__gender = gender
         self.__profile_img = profile_img
         self.__thumbnail_img = thumbnail_img
+        if self.__profile_img == '':
+            if self.__gender == 'Male':
+                self.__profile_img = 'https://avatar.iran.liara.run/public/boy'
+            else:
+                self.__profile_img = 'https://avatar.iran.liara.run/public/girl'
         self.auth = firebase.auth()
         self.db = firebase.database()
 
@@ -98,7 +114,7 @@ class ServiceProvider:
 
     def create_account(self, user):
         try:
-            user = self.auth.refresh(user['refreshToken'])
+            # user = self.auth.refresh(user['refreshToken'])
             id_token = user['idToken']
             uid = user['localId']
             if user:
@@ -113,7 +129,9 @@ class ServiceProvider:
                     "country": self.__country,
                     "working_days": self.__working_days,
                     "services": self.__services,
+                    "sub_service": self.__sub_service,
                     "description": self.__description,
+                    "gender": self.__gender,
                     "profile_img": self.__profile_img,
                     "thumbnail_img": self.__thumbnail_img,
                     "created_at": datetime.now().isoformat(),
@@ -122,13 +140,13 @@ class ServiceProvider:
                 self.db.child('service_providers').child(uid).set(user_data, id_token)
                 return True
         except Exception as e:
-            print(e)
+            print('error: ',e)
             return False
 
 def get_all_service_providers():
     auth = firebase.auth()
     db = firebase.database()
-    user = auth.sign_in_with_email_and_password('khalid.mahsousi@gmail.com', '123456789')
+    user = auth.sign_in_with_email_and_password('khalid.mahsousi@gmail.com', 'mahsousi')
     user = auth.refresh(user['refreshToken'])
     user_token = user['idToken']
     users_id = db.child('service_providers').get(user_token)
@@ -142,7 +160,23 @@ def get_all_service_providers():
             user_data[sp.key()] = sp.val()
         data.append(user_data)
     return data
-    # print(data)
+
+def get_user_data(user_id):
+    try:
+        auth = firebase.auth()
+        db = firebase.database()
+        user = auth.sign_in_with_email_and_password('khalid.mahsousi@gmail.com', 'mahsousi')
+        user = auth.refresh(user['refreshToken'])
+        user_token = user['idToken']
+        user = db.child('service_providers').child(user_id).get(user_token)
+        user_data = {}
+        if user_id:
+            for u in user:
+                user_data[u.key()] = u.val()
+                print('user', user_data)
+        return user_data
+    except Exception as e:
+        return {}
 
 
 def upload_img(path, image):

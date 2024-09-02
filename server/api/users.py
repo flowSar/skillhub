@@ -1,9 +1,10 @@
 #!/usr/bin/python3
 import requests
 from flask import jsonify, request, abort
+
 from . import app_view
 
-from firebase.firebase_service import firebase, Customer, ServiceProvider, get_all_service_providers, upload_img
+from firebase.firebase_service import firebase, Customer, ServiceProvider, get_all_service_providers, upload_img, get_user_data
 
 
 @app_view.route('/users')

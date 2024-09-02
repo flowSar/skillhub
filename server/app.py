@@ -3,7 +3,7 @@ from flask import Flask, jsonify, request, session
 from flask_session import Session
 from api import app_view
 from flask_cors import CORS
-from firebase.firebase_service import firebase, Customer, ServiceProvider, get_all_service_providers, upload_img
+from firebase.firebase_service import firebase, Customer, ServiceProvider, upload_img, get_user_data
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
@@ -29,8 +29,10 @@ def sign_up():
     city = request.form.get('city')
     country = request.form.get('country')
     working_days = request.form.get('working_days')
-    services = request.form.get('services')
+    services = request.form.get('service')
+    sub_service = request.form.get('sub_service')
     description = request.form.get('description')
+    gender = request.form.get('gender')
     profile_img = profile_img_url
     thumbnail_img = thumbnail_img_url
     service_provider = ServiceProvider(first_name=first_name,
@@ -43,19 +45,22 @@ def sign_up():
                                         country=country,
                                         working_days=working_days,
                                         services=services,
+                                        sub_service=sub_service,
                                         description=description,
+                                        gender=gender,
                                         profile_img=profile_img,
                                         thumbnail_img=thumbnail_img)
     user = service_provider.create_user()
-    if user == False:
-         print('create user failed')
+    if not user:
+         print('create user failed', user)
          return jsonify({'error': 'this email address is already in use'}), 409
-    signed_in = True if service_provider.sign_in() else False;
-    if signed_in == True:
-        service_provider.create_account(user)
+    signed_in_user = service_provider.sign_in();
+    print('sign in ', user)
+    if signed_in_user:
+        print('acoute created succ', service_provider.create_account(signed_in_user))
         return jsonify({"signup": "success"}), 200
     else:
-        print('error sign up :', signed_in)
+        print('error sign up :', signed_in_user)
         return jsonify({'error': 'signup failed'}), 409
 
 
@@ -64,19 +69,20 @@ def sign_up_customer():
         email = request.form.get('email')
         user_name = request.form.get('user_name')
         password = request.form.get('password')
-        customer = Customer(username=user_name, email=email, password=password)
+        gender =  request.form.get('gender')
+        customer = Customer(username=user_name, email=email, password=password, gender=gender)
         user = customer.create_user()
 
-        if user == False:
+        if not user:
             print('create user failed')
             return jsonify({'error': 'this email address is already in use'}), 409
 
-        signed_in = True if customer.sign_in() else False
-        if signed_in == True:
-            customer.create_account(user)
+        signed_in_user = customer.sign_in()
+        if signed_in_user:
+            customer.create_account(signed_in_user)
             return jsonify({"signup": "success"}), 200
         else:
-             print('error sign up :', signed_in)
+             print('error sign up :', signed_in_user)
              return jsonify({'error': 'signup failed'}), 409
 
 @app.route('/signin', strict_slashes=False, methods=['GET','POST'])
@@ -123,10 +129,26 @@ def log_out():
             return jsonify({}), 409
     return jsonify({}), 409
 
+
+@app.route('/user', strict_slashes=False, methods = ['POST'])
+def get_user():
+    json_data = request.get_json()
+    user_id = json_data.get('user_id')
+
+    if user_id:
+        if user_id == session.get(str(user_id)):
+            data = get_user_data(user_id)
+            if len(data) == 0:
+                return jsonify({"error": "user not found"}), 404  
+            return jsonify(data), 200
+        else:
+           return jsonify({"error": "plase log in"}), 404  
+    else:
+       return jsonify({"error": "user not found"}), 404 
+
 @app.route('/')
 def Home():
     return '<h1>hello world</h1>'
-
 
 if __name__ == '__main__':
     app.run(port=3333, debug=True)
