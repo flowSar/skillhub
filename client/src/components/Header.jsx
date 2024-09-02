@@ -48,27 +48,7 @@ const Header = () => {
     window.location.reload();
   };
 
-  // this function if for check if the user is log in by checking for a session is exist in the server 
-  // we call LoadLogInStatet function that will send a request to the server with user_id to check if the user has a session on the server to 
-  // keep him logged
-  const lodPage = async() => {
-    if (localStorage.getItem('user_id')) {
-      const data = {
-        user_id: localStorage.getItem('user_id')
-      };
-      const result = await LoadLogInState(data);
-      if (result) {
-        setLogInState(true);
-      } else {
-        setLogInState(false);
-      }
-    } else {
-      console.log('your not loged yet');
-    }
-
-  };
-  // when the page is loaded we call this function to check if the user is log in 
-  lodPage();
+  
 
   const handleProfileClick = () => {
     // this function for handling click on the profileimage and display the pop up menu 
@@ -79,6 +59,30 @@ const Header = () => {
     }
 
   };
+
+  useEffect(() => {
+    // this function if for check if the user is log in by checking for a session is exist in the server 
+    // we call LoadLogInStatet function that will send a request to the server with user_id to check if the user has a session on the server to 
+    // keep him logged
+    const lodPage = async() => {
+      if (localStorage.getItem('user_id')) {
+        const data = {
+          user_id: localStorage.getItem('user_id')
+        };
+        const result = await LoadLogInState(data);
+        if (result) {
+          setLogInState(true);
+        } else {
+          setLogInState(false);
+        }
+      } else {
+        console.log('your not loged yet');
+      }
+
+    };
+    // when the page is loaded we call this function to check if the user is log in 
+    lodPage();
+  }, []);
 
   return (
     <>
@@ -99,38 +103,38 @@ const Header = () => {
             Contact us
           </Link>
         </div>
-        {logInState ? 
-            <div className="">
-            <div className="relative space-x-2 items-center" onClick={handleProfileClick}>
-                <img className="h-[2.8rem] mr-2 md:mr-4 cursor-pointer" src="https://avatar.iran.liara.run/public/boy"/>
+            {logInState ? 
+                <div className="">
+                <div className="relative space-x-2 items-center" onClick={handleProfileClick}>
+                    <img className="h-[2.8rem] mr-2 md:mr-4 cursor-pointer" src="https://avatar.iran.liara.run/public/boy"/>
 
-              <div className={`absolute flex flex-col items-center bg-[#bebece] w-[8rem] h-[6rem] right-0 top-[3.3rem] space-y-2 p-2 ${displayProfile}`}>
-                <Link to="/profile" className="hover:underline hover:decoration-4 hover:decoration-green-700">profile</Link>
-                <button className="cursor-pointer hover:underline hover:underline-2 hover:decoration-4 hover:decoration-green-700" onClick={handleLogOut}>Log out</button>
+                  <div className={`absolute flex flex-col items-center bg-[#bebece] w-[8rem] h-[6rem] right-0 top-[3.3rem] space-y-2 p-2 ${displayProfile}`}>
+                    <Link to="/profile" className="hover:underline hover:decoration-4 hover:decoration-green-700">profile</Link>
+                    <button className="cursor-pointer hover:underline hover:underline-2 hover:decoration-4 hover:decoration-green-700" onClick={handleLogOut}>Log out</button>
+                  </div>
+                </div>
               </div>
+            : 
+            <div className={`space-x-1 mr-2`}>
+            <Link
+              to="/sign"
+              className="hover:bg-[#2b2b5a] px-1 py-2 md:px-4 md:py-[0.6rem] hover:border-2"
+            >
+            Sign Up
+            </Link>
+            <div
+              className=" hover:bg-[#2b2b5a] hover:border-2 px-2 py-2 md:px-4 md:py-2 inline-block  cursor-pointer"
+              onClick={displayLognIn}
+            >
+              Log in
             </div>
-          </div>
-        : 
-        <div className={`space-x-1 mr-2`}>
-        <Link
-          to="/sign"
-          className="hover:bg-[#2b2b5a] px-1 py-2 md:px-4 md:py-[0.6rem] hover:border-2"
-        >
-        Sign Up
-        </Link>
-        <div
-          className=" hover:bg-[#2b2b5a] hover:border-2 px-2 py-2 md:px-4 md:py-2 inline-block  cursor-pointer"
-          onClick={displayLognIn}
-        >
-          Log in
-        </div>
-        <LogIn
-          display={logInDisplayState ? "block" : "hidden"}
-          closeLogInWindows={displayLognIn}
-          lognInState={getLogInState}
-        />
-        </div>
-      }
+            <LogIn
+              display={logInDisplayState ? "block" : "hidden"}
+              closeLogInWindows={displayLognIn}
+              lognInState={getLogInState}
+            />
+            </div>
+          }
 
 
       </header>

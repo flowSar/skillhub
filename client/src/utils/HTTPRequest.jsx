@@ -91,3 +91,30 @@ export async function LogOut(data) {
     return false;
   }
 }
+
+export async function getuserInfo() {
+  try {
+    const response = await fetch('http://localhost:3333/user', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(
+        {
+          user_id: localStorage.getItem('user_id')
+        }
+      ),
+    });
+
+    if (response.ok) {
+      return  response.json();
+    } else {
+      console.error('Signup failed:', response.statusText);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    return false;
+  }
+} 

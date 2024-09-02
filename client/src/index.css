@@ -30,3 +30,19 @@
 .button-style {
     @apply bg-white font-semibold rounded-xl py-3 px-10 border-2 border-slate-600 hover:bg-slate-300;
 }
+
+/* hello */
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #09f;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

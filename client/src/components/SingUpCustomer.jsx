@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SignUp } from "../utils/HTTPRequest";
 
 const SingUpCustomer = ({ display }) => {
@@ -7,20 +7,34 @@ const SingUpCustomer = ({ display }) => {
   const [passwordInput, setPasswordInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
   const [errorDisplay, setErrorDisplay] = useState('hidden');
+  const [genderInput, setGenderInput] = useState('');
   const handleUserNameChange = (event) => setUserNameInput(event.target.value);
 
   const handleEmailChange = (event) => setEmailInput(event.target.value);
   const handlePasswordChange = (event) => setPasswordInput(event.target.value);
 
+  const handleGenderChange = (event) => setGenderInput(event.target.value);
+
   const formData = new FormData()
   formData.append('user_name', userNameInput);
   formData.append('email', emailInput);
   formData.append('password', passwordInput);
+  formData.append('gender', genderInput);
+
+  const navigate = useNavigate();
 
   const handleSignUp = async () => {
     const result = await SignUp(formData, 'customer');
     if (!result) {
       setErrorDisplay('block');
+      alert('sign up failed, try again');
+    } else {
+      setUserNameInput('');
+      setEmailInput('');
+      setPasswordInput('');
+      setGenderInput('');
+
+      navigate('/');
     }
   };
 
@@ -58,6 +72,13 @@ const SingUpCustomer = ({ display }) => {
               onChange={handlePasswordChange}
               value={passwordInput}
             />
+          </div>
+          <div>
+            <select id="sex" className="md:w-[10rem] h-[2.5rem] p-2 text-center" onChange={handleGenderChange}>
+                  <option>Gender</option>
+                  <option>Male</option>
+                  <option>Female</option>
+            </select>
           </div>
           <button className="button-style" onClick={handleSignUp}>
             Sign up

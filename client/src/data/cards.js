@@ -1,6 +1,22 @@
 import thumbnail from "../assets/thumbnail.png";
 import ProfileImg from "../assets/profileImg.jpg";
 
+const servicesUrl = 'http://localhost:3333/api/users';
+
+
+const cardds = [];
+
+export const result = async () => {
+  const response = await fetch(servicesUrl);
+
+  if (response.ok) {
+    const data = await response.json()  
+    return data;  
+  }
+};
+
+
+
 export const cards = [
   {
     thumbnail_img: thumbnail,

@@ -21,6 +21,7 @@ const SignUpFreelancer = ({ display }) => {
   const [gender, setGender] = useState("");
   const [description, setDescription] = useState("");
   const [errroVisible, setErrroVisible] = useState("hidden");
+  const [subService, setSubservices] = useState([]);
 
   const handleFirstNameChnage = (event) => setFirstName(event.target.value);
   const handlelastNameChange = (event) => setLastName(event.target.value);
@@ -44,6 +45,21 @@ const SignUpFreelancer = ({ display }) => {
   const handleGenderChange = (event) => setGender(event.target.value);
   const handleDescriptionChange = (event) => setDescription(event.target.value);
 
+  const handleSubServiceSelected = (event) => {
+    const value = event.target.value;
+    if (!subService.includes(value)) {
+      if (value !== '')
+        setSubservices([...subService, value]);
+    }
+  };
+
+  const removeSelectedService = (event) => {
+    const indexToRemove = +event.target.dataset.index;
+    const updatedSubService = subService.filter((item, index) => index !== indexToRemove);
+    // Update the state with the new array
+    setSubservices(updatedSubService);
+    console.log('cliked');
+  };
 
   const formData = new FormData()
   formData.append('first_name', firstName)
@@ -51,21 +67,37 @@ const SignUpFreelancer = ({ display }) => {
   formData.append('email', email)
   formData.append('password', password)
   formData.append('phone_number', phoneNumber)
+  formData.append('address', address)
   formData.append('city', city)
   formData.append('country', country)
   formData.append('working_days', workingDays)
   formData.append('profile_img', profileImage)
   formData.append('thumbnail_img', thumbnailmage)
   formData.append('service', service)
+  formData.append('sub_service', subService)
   formData.append('gender', gender)
   formData.append('description', description)
 
   // this function handle sign up click
   const handleSignup = () => {
     // when we click on sign up we call this fuction with data and usertype (customer, serviceProvider)
-    SignUp(formData, 'serviceProvider')
+    const result = SignUp(formData, 'serviceProvider')
     if (!result) {
       setErrroVisible('block');
+      alert('Sign up failed try again');
+    } else {
+      setFirstName('');
+      setLastName('');
+      setEmail('');
+      setpassword('');
+      setAddress('');
+      setPhoneNumber('');
+      setCity('');
+      setCountry('Morocco');
+      setProfileImage('');
+      setThumbnailImage('');
+      setGender('Gender');
+      setDescription('');
     }
   };
 
@@ -159,7 +191,7 @@ const SignUpFreelancer = ({ display }) => {
               </select>
             </div>
           </div>
-          <div>
+          <div className="border-t-2 border-t-slate-600 pt-2">
             <label id="days" className="">
               Select Working Days:
             </label>
@@ -175,7 +207,7 @@ const SignUpFreelancer = ({ display }) => {
               ))}
             </div>
           </div>
-          <div className="flex flex-col w-[20rem] md:w-auto">
+          <div className="flex flex-col w-[20rem] md:w-auto border-t-2 border-t-slate-600 pt-2">
             <label>
             Upload Profile Image:
               <input type="file" name="profile" accept="image/*" className="ml-4" onChange={handleProfileImageChange}/>
@@ -185,20 +217,49 @@ const SignUpFreelancer = ({ display }) => {
               <input type="file" name="thumbnail" accept="image/*" required className="ml-4" onChange={handleThumbnailImageChange}/>
             </label>
           </div>
-          <div className="flex gap-4 flex-col md:flex-row border-t-4 border-x-black pt-2">
-            <div className="flex flex-col gap-4 w-[20rem] md:w-[10rem]">
+          <div className="space-y-2 md:flex-row gap-2 items-center w-[20rem] md:w-auto border-t-2 border-t-slate-600">
               <select
-                id="cars"
-                className="md:w-[10rem] h-[2.5rem] p-2 text-center"
+                id="services"
+                className="w-[20rem] md:w-[10rem] h-[2.5rem] p-2 text-center"
                 onChange={handleServiceChange}
               >
-                <option value="">Services</option>
-                {services.map((item, index) => (
-                  <option key={index} value={item + index}>
-                    {item}
+              <option value="">Select Service</option>
+              {subService.length === 0 ?
+              Object.keys(services).map((service, index) => (
+                <option key={index} value={service}>
+                  {service}
+                </option>
+              ))
+              :
+              <option>{service}</option>
+              }
+            </select>
+
+            <select className="w-[20rem] md:w-[10rem] h-[2.5rem] p-2 text-center " onChange={handleSubServiceSelected}>
+              <option value="">Sub-Service</option>
+              {service &&
+                services[service].map((subService, index) => (
+                  <option key={index} value={subService}>
+                    {subService}
                   </option>
                 ))}
-              </select>
+            </select>
+            <div className={`border border-slate-700 w-[20rem] md:w-auto flex flex-col md:flex-row gap-2 p-2 ${subService.length === 0? 'hidden': 'block'}`}>
+
+              {
+                subService.map((item, index) => (
+                    <div className="flex border border-slate-400 rounded-r-[0.5rem] justify-around md:justify-normal" key={`div${item}`}>
+                    <p className="text-[0.8rem] p-[0.2rem]" key={`item${item}`}>{item}</p>
+                    <p className="cursor-pointer text-[0.8rem] p-[0.1rem] px-[0.5rem] hover:bg-slate-200 hover:rounded-[50%] duration-300 hover:font-bold" key={`close${item}`} onClick={removeSelectedService} data-index={`${index}`}>x</p>
+                  </div>
+                ))
+              }
+              
+            </div>
+          </div>
+
+          <div className="flex gap-4 flex-col md:flex-row border-t-2 border-t-slate-600 pt-2">
+            <div className="flex flex-col gap-4 w-[20rem] md:w-[10rem]">
               <select id="sex" className="md:w-[10rem] h-[2.5rem] p-2 text-center" onChange={handleGenderChange}>
                 <option>Gender</option>
                 <option>Male</option>
@@ -216,7 +277,7 @@ const SignUpFreelancer = ({ display }) => {
               />
             </div>
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-center ">
             <button className="button-style" onClick={handleSignup}>Sign up</button>
           </div>
           <div className="flex justify-center">
