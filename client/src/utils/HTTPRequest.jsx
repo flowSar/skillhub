@@ -118,3 +118,48 @@ export async function getuserInfo() {
     return false;
   }
 } 
+
+
+export async function sendComment(data) {
+  try {
+    const response = await fetch('http://localhost:3333/comment', {
+      method: 'POST',
+      body: data,
+    });
+
+    if (response.ok) {
+      return  true;
+    } else {
+      console.error('Signup failed:', response.statusText);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    return false;
+  }
+}
+
+
+export async function getComments(data) {
+  try {
+    const response = await fetch('http://localhost:3333/comments', 
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+    if (response.ok) {
+      const jsonData = await response.json();
+      return  jsonData;
+    } else {
+      console.error('Signup failed:', response.statusText);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    return false;
+  }
+} 

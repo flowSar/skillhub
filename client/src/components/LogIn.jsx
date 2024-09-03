@@ -16,7 +16,8 @@ const LogIn = ({ display, closeLogInWindows, lognInState}) => {
     const result = await SingIn(formData);
     if (result) {
       console.log('log in result', result.data['user_id'])
-
+      localStorage.setItem('email', email.split('@')[0]);
+      localStorage.setItem('login', true);
       lognInState({
         logIn: true,
         userId: result.data['user_id'],

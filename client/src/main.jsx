@@ -7,6 +7,8 @@ import SignUp from "./pages/SignUp.jsx";
 import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
 import Profile from "./pages/Profile.jsx";
+import Categories from "./pages/Categories.jsx";
+import Service from "./pages/Service.jsx";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,14 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <Profile/>
+  },
+  {
+    path: "/Categories",
+    element: <Categories/>
+  },
+  {
+    path: "/service",
+    element: <Service />
   }
 ]);
 

@@ -1,6 +1,7 @@
 import Card from "./Card";
 import { cards, result } from "../data/cards";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const CardsGrid = () => {
   const [cardsdata, setCardsData] = useState([])
@@ -21,17 +22,18 @@ const CardsGrid = () => {
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-2">
-        {cards.map((item, index) => (
+        {cardsdata.map((cardData, index) => (
           index <= 8 ?
-            <Card
+            <Link 
+            to={localStorage.getItem('login')? '/service' : '/' } state={{ cardData }}
               key={index}
-              thumbnail={item.thumbnail_img}
-              profile_img={item.profile_img}
-              name={item.first_name+' '+item.last_name}
-              description={item.description}
-              rating={item.rating}
-              onClick={handleCardClick}
+              >
+              <Card
+                key={index}
+                data = {cardData}
+                onClick={handleCardClick}
             />
+            </Link>
           :
           ''
         ))}

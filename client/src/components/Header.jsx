@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Categories from "./Categories";
 import LogIn from "./LogIn";
 import { Link } from "react-router-dom";
 import { LoadLogInState } from "../utils/HTTPRequest";
@@ -43,6 +42,8 @@ const Header = () => {
     if (result) {
       setLogInState(false);
       localStorage.removeItem('user_id');
+      localStorage.removeItem('login');
+      localStorage.removeItem('email')
     }
     // load the page after log out
     window.location.reload();
@@ -86,20 +87,26 @@ const Header = () => {
 
   return (
     <>
-      <header className="fixed right-0 left-0 xl:right-[10rem] xl:left-[10rem] top-0  z-40 flex items-center  pl-2 justify-between border-b-2 border-black h-[50px] md:h-[60px] text-sm md:text-lg first-letter bg-[#bebece] text-white font-semibold">
-        <div className="flex items-center cursor-pointer">
-          <div className="relative w-[6rem] md:w-[8rem] bg-red-400">
+      <header className="fixed right-0 left-0 xl:right-[10rem] xl:left-[10rem] top-0  z-40 flex items-center  pl-2 justify-between border-b-2 border-black h-[50px] md:h-[60px] text-sm md:text-lg first-letter bg-[#ffffff] text-slate-800 font-semibold">
+      <div className="w-[6rem] md:w-[8rem] bg-red-400">
             {" "}
             SkillHub Logo
           </div>
-          <div className=" group hover:bg-[#60606e] px-2 py-[1rem]" href="">
-            Categories
-            <Categories classes="absolute bg-gray-100 text-black hidden group-hover:block" />
+        <div className="flex items-center cursor-pointer">
+          <div className=" group hover:bg-[#60606e] hover:text-white px-2 py-2 duration-300" href="">
+            <Link to="/Categories">Categories</Link>
           </div>
-          <Link className=" hover:bg-[#60606e] px-2 py-[1rem]" to="/about">
+          <Link className=" hover:bg-[#60606e] hover:text-white  px-4 py-2 duration-300"
+          to={
+            {
+              pathname: '/about',
+              state: {name: 'brahim'}
+            }
+          }
+          >
             about
           </Link>
-          <Link className=" hover:bg-[#60606e] px-2 py-[1rem]" to="/contact">
+          <Link className=" hover:bg-[#60606e] hover:text-white  px-2 py-2 duration-300" to="/contact">
             Contact us
           </Link>
         </div>
@@ -108,7 +115,7 @@ const Header = () => {
                 <div className="relative space-x-2 items-center" onClick={handleProfileClick}>
                     <img className="h-[2.8rem] mr-2 md:mr-4 cursor-pointer" src="https://avatar.iran.liara.run/public/boy"/>
 
-                  <div className={`absolute flex flex-col items-center bg-[#bebece] w-[8rem] h-[6rem] right-0 top-[3.3rem] space-y-2 p-2 ${displayProfile}`}>
+                  <div className={`absolute flex flex-col items-center bg-[#e6e6eb] w-[6rem] h-[6rem] right-0 top-[3.35rem] space-y-2 p-2 rounded-l-md ${displayProfile}`}>
                     <Link to="/profile" className="hover:underline hover:decoration-4 hover:decoration-green-700">profile</Link>
                     <button className="cursor-pointer hover:underline hover:underline-2 hover:decoration-4 hover:decoration-green-700" onClick={handleLogOut}>Log out</button>
                   </div>
@@ -118,12 +125,12 @@ const Header = () => {
             <div className={`space-x-1 mr-2`}>
             <Link
               to="/sign"
-              className="hover:bg-[#2b2b5a] px-1 py-2 md:px-4 md:py-[0.6rem] hover:border-2"
+              className="hover:bg-[#2b2b5a] hover:text-white  px-1 py-2 md:px-4 md:py-[0.6rem] hover:border-2 duration-300"
             >
             Sign Up
             </Link>
             <div
-              className=" hover:bg-[#2b2b5a] hover:border-2 px-2 py-2 md:px-4 md:py-2 inline-block  cursor-pointer"
+              className=" hover:bg-[#2b2b5a] hover:text-white hover:border-2 px-2 py-2 md:px-4 md:py-2 inline-block  cursor-pointer duration-300"
               onClick={displayLognIn}
             >
               Log in
