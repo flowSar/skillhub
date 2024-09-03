@@ -3,7 +3,7 @@ from flask import Flask, jsonify, request, session
 from flask_session import Session
 from api import app_view
 from flask_cors import CORS
-from firebase.firebase_service import firebase, Customer, ServiceProvider, upload_img, get_user_data
+from firebase.firebase_service import firebase, Customer, ServiceProvider, upload_img, get_user_data, set_comments, get_all_comments
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
@@ -145,6 +145,26 @@ def get_user():
            return jsonify({"error": "plase log in"}), 404  
     else:
        return jsonify({"error": "user not found"}), 404 
+
+@app.route('/comment', strict_slashes=False, methods = ['POST'])
+def set_comment():
+    comment = request.form.get('comment')
+    user_name = request.form.get('user_name')
+    uid = request.form.get('uid')
+    result = set_comments(comment=comment, user_name=user_name, uid=uid)
+    print('ali mohamadof uid', uid)
+    if result is True:
+        return jsonify({}), 200
+    return jsonify({}), 409
+
+
+@app.route('/comments', strict_slashes=False, methods = ['POST'])
+def get_comments():
+    uid = request.get_json().get('uid');
+    print('uid: ', uid)
+    comments = get_all_comments(uid)
+    return jsonify(comments), 200
+
 
 @app.route('/')
 def Home():

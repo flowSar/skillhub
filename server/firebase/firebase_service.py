@@ -155,8 +155,6 @@ def get_all_service_providers():
         service_providers = db.child('service_providers').child(id.key()).get(user_token)
         user_data = {}
         for sp in service_providers:
-            if sp.key() == 'uid':
-                continue
             user_data[sp.key()] = sp.val()
         data.append(user_data)
     return data
@@ -191,6 +189,41 @@ def upload_img(path, image):
  
     else:
         return None
+
+
+def set_comments(comment, user_name, uid):
+    try:
+        auth = firebase.auth()
+        db = firebase.database()
+        user = auth.sign_in_with_email_and_password('khalid.mahsousi@gmail.com', 'mahsousi')
+        data = {
+            'user_name': user_name,
+            'comment': comment,
+            'date': datetime.now().strftime('%d-%m-%Y')
+        }
+        db.child('comments').child(uid).push(data)
+        return True
+    except Exception as e:
+        print('error',e)
+        return False
+
+def get_all_comments(uid):
+    try:
+        auth = firebase.auth()
+        db = firebase.database()
+        user = auth.sign_in_with_email_and_password('khalid.mahsousi@gmail.com', 'mahsousi')
+        user = auth.refresh(user['refreshToken'])
+        service_id = db.child('comments').child(uid).get()
+        all_comments = []
+        if service_id:
+            for comments in service_id:
+                all_comments.append(comments.val())
+        return all_comments
+        return 
+    except:
+        return False
+
+
 
 # user = User("khalid mahsousi", "khalid.mahsousi@gmail.com", '123456789')
 # user.create_user()
