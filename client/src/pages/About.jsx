@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SimpleHeader from "../components/SimpleHeader";
 
-const About = () => {
 
+const About = () => {
 
   return (
     <>

@@ -103,7 +103,7 @@ const Profile = () => {
           <p className={`text-center text-red-500 ${errroVisible}`}>please ensure that you filled all the required information</p>
           <p className={`text-center text-red-500 ${errroVisible}`}>sign up failed this email is already exist</p>
           <div className="flex gap-2 md:gap-8 flex-col md:flex-row">
-            <div>
+            <div className='shadow-lg'>
               <p>First name</p>
               <input
                 type="text"
@@ -113,7 +113,7 @@ const Profile = () => {
                 onChange={handleFirstNameChnage}
               />
             </div>
-            <div>
+            <div className='shadow-lg'>
               <p>Last Name</p>
               <input
                 type="text"
@@ -125,7 +125,7 @@ const Profile = () => {
             </div>
           </div>
           <div className="flex gap-2 md:gap-8 flex-col md:flex-row">
-            <div>
+            <div className='shadow-lg'>
               <p>Address</p>
               <input
                 type="text"
@@ -135,7 +135,7 @@ const Profile = () => {
                 onChange={handleAddressChange}
               />
             </div>
-            <div>
+            <div className='shadow-lg'>
               <p>Phone Number</p>
               <input
                 type="tel"
@@ -147,7 +147,7 @@ const Profile = () => {
             </div>
           </div>
           <div className="flex gap-2 md:gap-8 flex-col md:flex-row">
-            <div>
+            <div className='shadow-lg'>
               <p>City</p>
               <input
                 type="text"
@@ -157,14 +157,14 @@ const Profile = () => {
                 onChange={handleCityChange}
               />
             </div>
-            <div>
+            <div className='shadow-lg'>
               <p>Country</p>
               <select className="input-style w-[20rem] bg-white">
                 <option>Morocco</option>
               </select>
             </div>
           </div>
-          <div>
+          <div className='shadow-lg'>
             <label id="days" className="">
               Select Working Days:
             </label>
@@ -181,7 +181,7 @@ const Profile = () => {
               ))}
             </div>
           </div>
-          <div className="flex flex-col w-[20rem] md:w-auto">
+          <div className="flex flex-col w-[20rem] md:w-auto shadow-lg">
             <label>
             Upload Profile Image:
               <input type="file" name="profile" accept="image/*" className="ml-4" onChange={handleProfileImageChange}/>
@@ -191,7 +191,7 @@ const Profile = () => {
               <input type="file" name="thumbnail" accept="image/*" required className="ml-4" onChange={handleThumbnailImageChange}/>
             </label>
           </div>
-          <div className="flex gap-4 flex-col border-t-4 border-x-black pt-2">
+          <div className="flex gap-4 flex-col border-t-4 border-x-black pt-2 shadow-lg">
           <div className="space-y-2 space-x-2 md:flex-row gap-2 items-center w-[20rem] md:w-auto">
               <select
                 id="services"
@@ -238,7 +238,7 @@ const Profile = () => {
             </div>
           </div>
           <div className="flex justify-center">
-            <button className="button-style" onClick={handleSignup}>Save Changes</button>
+            <button className="button-style shadow-lg" onClick={handleSignup}>Save Changes</button>
           </div>
         </div>
       </div>

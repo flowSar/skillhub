@@ -3,6 +3,7 @@ import LogIn from "./LogIn";
 import { Link } from "react-router-dom";
 import { LoadLogInState } from "../utils/HTTPRequest";
 import { LogOut } from "../utils/HTTPRequest";
+import Logo from "../assets/logo-1.webp"
 
 const Header = () => {
   const [displayProfile, setDisplayProfile] = useState('hidden');
@@ -87,9 +88,8 @@ const Header = () => {
 
   return (
     <>
-      <header className="fixed right-0 left-0 xl:right-[10rem] xl:left-[10rem] top-0  z-40 flex items-center  pl-2 justify-between border-b-2 border-black h-[50px] md:h-[60px] text-sm md:text-lg first-letter bg-[#ffffff] text-slate-800 font-semibold">
-      <div className="w-[6rem] md:w-[8rem] bg-red-400">
-            {" "}
+      <header className="fixed right-0 left-0 xl:right-[10rem] xl:left-[10rem] top-0  z-40 flex items-center  pl-2 justify-between border-b-2 border-black h-[50px] md:h-[60px] text-sm md:text-lg first-letter bg-[#ffffff] text-slate-800 font-semibold shadow-lg">
+        <div className="w-[6rem] md:w-[8rem] bg-red-400">
             SkillHub Logo
           </div>
         <div className="flex items-center cursor-pointer">
@@ -111,13 +111,13 @@ const Header = () => {
           </Link>
         </div>
             {logInState ? 
-                <div className="">
+              <div className="">
                 <div className="relative space-x-2 items-center" onClick={handleProfileClick}>
                     <img className="h-[2.8rem] mr-2 md:mr-4 cursor-pointer" src="https://avatar.iran.liara.run/public/boy"/>
 
-                  <div className={`absolute flex flex-col items-center bg-[#e6e6eb] w-[6rem] h-[6rem] right-0 top-[3.35rem] space-y-2 p-2 rounded-l-md ${displayProfile}`}>
-                    <Link to="/profile" className="hover:underline hover:decoration-4 hover:decoration-green-700">profile</Link>
-                    <button className="cursor-pointer hover:underline hover:underline-2 hover:decoration-4 hover:decoration-green-700" onClick={handleLogOut}>Log out</button>
+                  <div className={`absolute flex flex-col items-center bg-[#f7f7f7] left-[-3rem] right-0 top-[3.35rem] p-2 rounded-l-md ${displayProfile} shadow-lg`}>
+                    <Link to="/profile" className="cursor-pointer hover:bg-slate-100 px-[0.6rem] py-2 w-full h-full border-b-2">profile</Link>
+                    <button className="cursor-pointer hover:bg-slate-100 w-full h-full px-[0.6rem] py-2 border-t-2" onClick={handleLogOut}>Log out</button>
                   </div>
                 </div>
               </div>

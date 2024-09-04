@@ -3,7 +3,7 @@ import { cards, result } from "../data/cards";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const CardsGrid = () => {
+const CardsGrid = ({ isLogged }) => {
   const [cardsdata, setCardsData] = useState([])
   const handleCardClick = async () => {
     const data = await result();
@@ -21,7 +21,7 @@ const CardsGrid = () => {
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-2 mb-[1rem]">
         {cardsdata.map((cardData, index) => (
           index <= 8 ?
             <Link 
@@ -32,6 +32,7 @@ const CardsGrid = () => {
                 key={index}
                 data = {cardData}
                 onClick={handleCardClick}
+                isLogged={isLogged}
             />
             </Link>
           :
