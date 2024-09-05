@@ -10,20 +10,38 @@ const PopularService = () => {
     <>
       <ul className="horizontal-list">
         <li className="">
-          <img src={langScape} className="mx-auto" />
-          <Link>LandScaping</Link>
+        <Link to="/SearchResults">
+            <img src={langScape} className="mx-auto" onClick={() => {
+                localStorage.setItem("searchService", "LandScaping")
+            }}/>
+            LandScaping
+          </Link>
         </li>
         <li>
-          <img src={Plumbing} className="mx-auto" />
-          <Link>Plumbing</Link>
+          <Link to="/SearchResults">
+            <img src={Plumbing} className="mx-auto" onClick={() => {
+                localStorage.setItem("searchService", "Plumbing");
+            }}/>
+            Plumbing
+          </Link>
         </li>
         <li>
-          <img src={Electrical} className="mx-auto" />
-          <Link>Electrical</Link>
+          <Link to="/SearchResults" >
+              <img src={Electrical} className="mx-auto" onClick={() => {
+                  localStorage.setItem("searchService", "Electrical");
+              }}/>
+              
+              Electrical
+            </Link>
         </li>
         <li>
-          <img src={Cleaning} className="mx-auto" />
-          <Link>Cleaning</Link>
+          <Link to="/SearchResults">
+            <img src={Cleaning} className="mx-auto" onClick={() => {
+                localStorage.setItem("searchService", "Cleaning");
+            }}/>
+            
+            Cleaning
+          </Link>
         </li>
       </ul>
     </>

@@ -27,7 +27,6 @@ function SearchResults() {
   const subservice = localStorage.getItem('searchSubService');
   const  service  = localStorage.getItem('searchService');
   console.log('search: for service', service);
-  console.log('search: for servsubserviceice', subservice);
 
   const [isLogged, setLogged] = useState(false);
   useEffect(() => {
@@ -70,13 +69,13 @@ function SearchResults() {
 
 
   console.log('filteredBySubService', filteredBySubService);
-  // console.log('filteredBySubService', filteredBySubService);
-  // if (subservice) {
-  //  const filteredBySubService = filtredByService.filter((sub) => sub.sub_service === subservice);
-  // }
+
   return (
     <>
       <SimpleHeader />
+      <div className="p-4 bg-slate-50 shadow-lg mt-8 mb-4">
+        <p className="text-center text-xl font-semibold underline"> {service} <span className={`text-red-800 inline-block ml-2 ${subservice? 'block': 'hidden'}`}>({subservice})</span></p>
+      </div>
       { filtredByService.length === 0?
         <div className="h-screen flex justify-center items-center p-10  text-xl md:text-4xl text-slate-900">
             <p className="bg-red-400 p-10">{service}/{subservice}: this service was not found</p>
