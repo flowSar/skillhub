@@ -86,18 +86,18 @@ const SignUpFreelancer = ({ display }) => {
       setErrroVisible('block');
       alert('Sign up failed try again');
     } else {
-      setFirstName('');
-      setLastName('');
-      setEmail('');
-      setpassword('');
-      setAddress('');
-      setPhoneNumber('');
-      setCity('');
-      setCountry('Morocco');
-      setProfileImage('');
-      setThumbnailImage('');
-      setGender('Gender');
-      setDescription('');
+      // setFirstName('');
+      // setLastName('');
+      // setEmail('');
+      // setpassword('');
+      // setAddress('');
+      // setPhoneNumber('');
+      // setCity('');
+      // setCountry('Morocco');
+      // setProfileImage('');
+      // setThumbnailImage('');
+      // setGender('Gender');
+      // setDescription('');
     }
   };
 
@@ -186,8 +186,9 @@ const SignUpFreelancer = ({ display }) => {
             </div>
             <div>
               <p>Country</p>
-              <select className="input-style w-[20rem] bg-white">
+              <select className="input-style w-[20rem] bg-white" onChange={handleCountryChange}>
                 <option>Morocco</option>
+                <option>US</option>
               </select>
             </div>
           </div>
@@ -223,7 +224,7 @@ const SignUpFreelancer = ({ display }) => {
                 className="w-[20rem] md:w-[10rem] h-[2.5rem] p-2 text-center"
                 onChange={handleServiceChange}
               >
-              <option value="">Select Service</option>
+              <option value="" disabled selected>Select Service</option>
               {subService.length === 0 ?
               Object.keys(services).map((service, index) => (
                 <option key={index} value={service}>
@@ -236,7 +237,7 @@ const SignUpFreelancer = ({ display }) => {
             </select>
 
             <select className="w-[20rem] md:w-[10rem] h-[2.5rem] p-2 text-center " onChange={handleSubServiceSelected}>
-              <option value="">Sub-Service</option>
+              <option value="" disabled selected>Sub-Service</option>
               {service &&
                 services[service].map((subService, index) => (
                   <option key={index} value={subService}>

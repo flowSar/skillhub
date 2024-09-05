@@ -103,7 +103,8 @@ export const services = {
         "House cleaning",
         "Office cleaning",
         "Post-construction cleaning",
-        "Window cleaning"
+        "Window cleaning",
+        "Deep Cleaning"
     ],
     Electrical: [
         "Ceiling fan installation",

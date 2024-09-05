@@ -1,77 +1,79 @@
 import thumbnail from "../assets/thumbnail.png";
 import ProfileImg from "../assets/profileImg.jpg";
+import { useState } from "react";
 
 const servicesUrl = 'http://localhost:3333/api/users';
 
+// const [cards, setCards] = useState([]);
 
-const cardds = [];
-
-export const result = async () => {
+export const loadAllServiceProviders = async () => {
   const response = await fetch(servicesUrl);
 
   if (response.ok) {
     const data = await response.json()  
     return data;  
+  } else {
+    return [];
   }
 };
 
 
-
-export const cards = [
-  {
-    thumbnail_img: thumbnail,
-    profile_img: ProfileImg,
-    name: "brahim sar",
-    description:
-      "I will create high converting shopify dropshipping store or website",
-    rating: "4.5",
-  },
-  {
-    thumbnail_img: thumbnail,
-    profile_img: ProfileImg,
-    name: "brahim sar",
-    description:
-      "I will create high converting shopify dropshipping store or website",
-    rating: "4.5",
-  },
-  {
-    thumbnail_img: thumbnail,
-    profile_img: ProfileImg,
-    name: "brahim sar",
-    description:
-      "I will create high converting shopify dropshipping store or website",
-    rating: "4.5",
-  },
-  {
-    thumbnail_img: thumbnail,
-    profile_img: ProfileImg,
-    name: "brahim sar",
-    description:
-      "I will create high converting shopify dropshipping store or website",
-    rating: "4.5",
-  },
-  {
-    thumbnail_img: thumbnail,
-    profile_img: ProfileImg,
-    name: "brahim sar",
-    description:
-      "I will create high converting shopify dropshipping store or website",
-    rating: "4.5",
-  },
-  {
-    thumbnail_img: thumbnail,
-    profile_img: ProfileImg,
-    name: "brahim sar",
-    description:
-      "I will create high converting shopify dropshipping store or website",
-    rating: "4.5",
-  },
-  {
-    thumbnail_img: thumbnail,
-    profile_img: ProfileImg,
-    name: "brahim sar",
-    description:
-      "I will create high converting shopify dropshipping store or website",
-    rating: "4.5",
-  },
-];
+export const cards = [];
+// export const cards = [
+//   {
+//     thumbnail_img: thumbnail,
+//     profile_img: ProfileImg,
+//     name: "brahim sar",
+//     description:
+//       "I will create high converting shopify dropshipping store or website",
+//     rating: "4.5",
+//   },
+//   {
+//     thumbnail_img: thumbnail,
+//     profile_img: ProfileImg,
+//     name: "brahim sar",
+//     description:
+//       "I will create high converting shopify dropshipping store or website",
+//     rating: "4.5",
+//   },
+//   {
+//     thumbnail_img: thumbnail,
+//     profile_img: ProfileImg,
+//     name: "brahim sar",
+//     description:
+//       "I will create high converting shopify dropshipping store or website",
+//     rating: "4.5",
+//   },
+//   {
+//     thumbnail_img: thumbnail,
+//     profile_img: ProfileImg,
+//     name: "brahim sar",
+//     description:
+//       "I will create high converting shopify dropshipping store or website",
+//     rating: "4.5",
+//   },
+//   {
+//     thumbnail_img: thumbnail,
+//     profile_img: ProfileImg,
+//     name: "brahim sar",
+//     description:
+//       "I will create high converting shopify dropshipping store or website",
+//     rating: "4.5",
+//   },
+//   {
+//     thumbnail_img: thumbnail,
+//     profile_img: ProfileImg,
+//     name: "brahim sar",
+//     description:
+//       "I will create high converting shopify dropshipping store or website",
+//     rating: "4.5",
+//   },
+//   {
+//     thumbnail_img: thumbnail,
+//     profile_img: ProfileImg,
+//     name: "brahim sar",
+//     description:
+//       "I will create high converting shopify dropshipping store or website",
+//     rating: "4.5",
+//   },
+// ];

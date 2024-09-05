@@ -1,7 +1,7 @@
-const LineBare = ({ title }) => {
+const LineBare = ({ title, display }) => {
   return (
     <>
-      <div className="flex items-center">
+      <div className={`flex items-center ${display}`}>
         <p className="bg-[#363131] border-black flex-1 h-2 rounded-md"></p>
         <p
           className={`mx-2 text-lg font-medium ${title === "" ? "hidden" : ""}`}

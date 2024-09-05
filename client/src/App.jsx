@@ -8,9 +8,10 @@ import LineBare from "./components/LineBar";
 import PopularService from "./components/PopularService";
 import SearchNav from "./components/SearchNav";
 import { LoadLogInState } from "./utils/HTTPRequest";
+import { loadAllServiceProviders } from "./data/cards";
 
 function App() {
-
+  const [cardsdata, setCardsData] = useState([])
   const [isLogged, setLogged] = useState(false);
     useEffect(() => {
       // this function if for check if the user is log in by checking for a session is exist in the server 
@@ -35,6 +36,18 @@ function App() {
       LoadDataFromDb();
     }, []); 
 
+
+    useEffect(() => {
+      const loadData = async() => {
+        const data = await loadAllServiceProviders();
+        setCardsData(data);
+      };
+  
+      loadData();
+    }, []);
+  
+
+
   return (
     <>
       <Header />
@@ -42,10 +55,18 @@ function App() {
       <LineBare title="Popular services" />
       <PopularService />
       <LineBare title="Popular service providers" />
-      <CardsGrid isLogged={isLogged}/>
-      <LineBare title={isLogged ? 'Popular Cleaning services': ''}/>
+      <CardsGrid isLogged={isLogged} cardsdata={cardsdata} cardNumber="8" display='block'/>
+
+      <LineBare title={isLogged ? 'Popular Cleaning services': ''} display={true}/>
+      <CardsGrid isLogged={isLogged} cardsdata={cardsdata.filter((card) => card.service === 'Cleaning')} display={isLogged}/>
+
       <ForClientSection isLogged={isLogged}/>
-      <LineBare title={isLogged ? 'Popular Electrical services': ''} />
+      <LineBare title={isLogged ? 'Popular AutoRepair services': ''} display="block"/>
+      <CardsGrid isLogged={isLogged} cardsdata={cardsdata.filter((card) => card.service === 'AutoRepair')} cardNumber="4" display={isLogged}/>
+
+      <LineBare title={isLogged ? 'Popular Plumbing services': ''} display={isLogged? 'block' : 'hidden'}/>
+
+      <CardsGrid isLogged={isLogged} cardsdata={cardsdata.filter((card) => card.service === 'Plumbing')} cardNumber="4" display={isLogged}/>
       <ForTalentSection isLogged={isLogged}/>
       <Footer />
     </>

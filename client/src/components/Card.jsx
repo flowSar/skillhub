@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { LoadLogInState } from "../utils/HTTPRequest";
+import { Link } from "react-router-dom";
 
 const Card = ({
   data,
@@ -12,7 +13,7 @@ const Card = ({
         className="group relative bg-gray-50 mx-4 sm:mx-0 p-2 mt-2 mb-2 cursor-pointer border border-slate-900 rounded-lg shadow-md shadow-black"
         onClick={onClick}
       >
-        <img src={data.thumbnail_img} className="lg:max-h-[13rem]"/>
+        <img src={data.thumbnail_img} className="lg:h-[10rem] md:h-[15rem] w-full object-full"/>
         <div className=" flex items-center space-x-2 mt-1">
           <img
             src={data.profile_img}
@@ -21,7 +22,7 @@ const Card = ({
           <div className="text-md font-medium">{data.first_name+' '+data.last_name}</div>
         </div>
         <div className="text-center mt-2">
-          <a className="line-clamp-2">{data.description}</a>
+          <p className="line-clamp-2">{data.description}</p>
           <div className="font-bold text-lg">city: {data.city} </div>
         </div>
         {isLogged?
@@ -39,7 +40,7 @@ const Card = ({
           </div>
         </div>
         :
-        ""
+        null
         }
       </div>
     </>
