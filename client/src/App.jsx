@@ -9,9 +9,11 @@ import PopularService from "./components/PopularService";
 import SearchNav from "./components/SearchNav";
 import { LoadLogInState } from "./utils/HTTPRequest";
 import { loadAllServiceProviders } from "./data/cards";
+import LoadedData from "./components/LoadedData";
 
 function App() {
-  const [cardsdata, setCardsData] = useState([])
+  const [cardsdata, setCardsData] = useState([]);
+  const [isDataLoaded, setIsDataLoaded] = useState('block');
   const [isLogged, setLogged] = useState(false);
     useEffect(() => {
       // this function if for check if the user is log in by checking for a session is exist in the server 
@@ -25,12 +27,12 @@ function App() {
           const result = await LoadLogInState(data);
           if (result) {
             setLogged(true);
+
           }
 
         } else {
           console.log('your not loged yet');
         }
-
       };
       // when the page is loaded we call this function to check if the user is log in 
       LoadDataFromDb();
@@ -40,6 +42,9 @@ function App() {
     useEffect(() => {
       const loadData = async() => {
         const data = await loadAllServiceProviders();
+        if (data) {
+          setIsDataLoaded('hidden');
+        }
         setCardsData(data);
       };
   
@@ -55,18 +60,23 @@ function App() {
       <LineBare title="Popular services" />
       <PopularService />
       <LineBare title="Popular service providers" />
+
       <CardsGrid isLogged={isLogged} cardsdata={cardsdata} cardNumber="8" display='block'/>
+      <LoadedData isDataLoaded={isDataLoaded}/>
 
       <LineBare title={isLogged ? 'Popular Cleaning services': ''} display={true}/>
       <CardsGrid isLogged={isLogged} cardsdata={cardsdata.filter((card) => card.service === 'Cleaning')} display={isLogged}/>
+      <LoadedData isDataLoaded={isLogged? isDataLoaded: "hidden"}/>
 
       <ForClientSection isLogged={isLogged}/>
       <LineBare title={isLogged ? 'Popular AutoRepair services': ''} display="block"/>
       <CardsGrid isLogged={isLogged} cardsdata={cardsdata.filter((card) => card.service === 'AutoRepair')} cardNumber="4" display={isLogged}/>
+      <LoadedData isDataLoaded={isLogged? isDataLoaded: "hidden"}/>
 
       <LineBare title={isLogged ? 'Popular Plumbing services': ''} display={isLogged? 'block' : 'hidden'}/>
 
       <CardsGrid isLogged={isLogged} cardsdata={cardsdata.filter((card) => card.service === 'Plumbing')} cardNumber="4" display={isLogged}/>
+      <LoadedData isDataLoaded={isLogged? isDataLoaded: "hidden"}/>
       <ForTalentSection isLogged={isLogged}/>
       <Footer />
     </>

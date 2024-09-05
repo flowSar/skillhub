@@ -4,9 +4,8 @@ import { services } from "../data/services";
 import SimpleHeader from "../components/SimpleHeader";
 const Categories = () => {
 
-  const handleServiceClick = (event) => {
-    console.log(event.target.innerText);
-  };
+  localStorage.removeItem("searchService",)
+  localStorage.removeItem('searchSubService')
 
   return (
     <>
@@ -16,11 +15,19 @@ const Categories = () => {
         {
           Object.keys(services).map((service, index) => (
             <div key={`container-service${index}`} className="shadow-lg p-2">
-              <p className="font-semibold" key={service}>{service}</p>
+              <p className="font-semibold cursor-pointer" key={service} onClick={() => {
+                localStorage.setItem("searchService", service)
+                localStorage.removeItem('searchSubService')
+              }}
+              ><Link to="/SearchResults">{ service }</Link></p>
               <ul className="ml-4 list-disc" key={`ul${service}${index}`}>
                 {
                   services[service].map((subservice, index) => (
-                    <li key={subservice} className="cursor-pointer" onClick={handleServiceClick}>{ subservice }</li>
+                    <li key={subservice} className="cursor-pointer" onClick={ () => {
+                      localStorage.setItem("searchService", service)
+                      localStorage.setItem('searchSubService', subservice)
+                    }
+                    }><Link to="/SearchResults"> { subservice }</Link></li>
                   ))
                 }
               </ul>

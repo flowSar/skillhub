@@ -87,9 +87,14 @@ function Service() {
                 { cardData.service || cardData.services }
                 <ul className="ml-[3rem] list-disc">
                   { cardData.sub_service?
-                    cardData.sub_service.split(',').map((svs, index) => (
-                      <li key={svs} className="font-medium">{svs}</li>
-                    ))
+                     typeof cardData.sub_service === 'string'?
+                      cardData.sub_service.split(',').map((svs, index) => (
+                        <li key={svs} className="font-medium">{svs}</li>
+                      ))
+                      :
+                      cardData.sub_service.map((svs, index) => (
+                        <li key={svs} className="font-medium">{svs}</li>
+                      ))
                     :
                     null
                   }

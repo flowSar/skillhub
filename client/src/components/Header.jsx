@@ -91,7 +91,7 @@ const Header = () => {
   return (
     <>
       <header className="fixed right-0 left-0 xl:right-[10rem] xl:left-[10rem] top-0  z-40 flex items-center  pl-2 justify-between border-b-2 border-black h-[50px] md:h-[60px] text-sm md:text-lg first-letter bg-[#ffffff] text-slate-800 font-semibold shadow-lg">
-        <div className="w-[6rem] md:w-[8rem] bg-red-400">
+        <div className="w-[6rem] md:w-[8rem]">
           <Link to="/">
             <img src={Logo} className="h-[2.8rem] w-full object-cover"/>
           </Link>
