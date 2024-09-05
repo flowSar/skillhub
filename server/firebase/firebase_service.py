@@ -98,11 +98,13 @@ class ServiceProvider:
     def create_user(self):
         try:
             user = self.auth.create_user_with_email_and_password(self.__email, self.__password)
+            print('crete user in function', user)
             if user:
                 return True
             else:
                 return False
         except:
+            print('creat user exception')
             return False
 
     def sign_in(self):
@@ -128,7 +130,7 @@ class ServiceProvider:
                     "city": self.__city,
                     "country": self.__country,
                     "working_days": self.__working_days,
-                    "services": self.__services,
+                    "service": self.__services,
                     "sub_service": self.__sub_service,
                     "description": self.__description,
                     "gender": self.__gender,
@@ -144,20 +146,25 @@ class ServiceProvider:
             return False
 
 def get_all_service_providers():
-    auth = firebase.auth()
-    db = firebase.database()
-    user = auth.sign_in_with_email_and_password('khalid.mahsousi@gmail.com', 'mahsousi')
-    user = auth.refresh(user['refreshToken'])
-    user_token = user['idToken']
-    users_id = db.child('service_providers').get(user_token)
-    data = []
-    for id in users_id:
-        service_providers = db.child('service_providers').child(id.key()).get(user_token)
-        user_data = {}
-        for sp in service_providers:
-            user_data[sp.key()] = sp.val()
-        data.append(user_data)
-    return data
+    try:
+        auth = firebase.auth()
+        db = firebase.database()
+        user = auth.sign_in_with_email_and_password('khalid.mahsousi@gmail.com', 'mahsousi')
+        user = auth.refresh(user['refreshToken'])
+        user_token = user['idToken']
+        users_id = db.child('service_providers').get(user_token)
+        data = []
+        if users_id:
+            for id in users_id:
+                service_providers = db.child('service_providers').child(id.key()).get(user_token)
+                user_data = {}
+                for sp in service_providers:
+                    user_data[sp.key()] = sp.val()
+                data.append(user_data)
+        return data
+    except Exception as e:
+        print('erro get all service providers')
+        return []
 
 def get_user_data(user_id):
     try:
@@ -219,7 +226,6 @@ def get_all_comments(uid):
             for comments in service_id:
                 all_comments.append(comments.val())
         return all_comments
-        return 
     except:
         return False
 
