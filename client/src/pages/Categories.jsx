@@ -15,7 +15,7 @@ const Categories = () => {
         {
           Object.keys(services).map((service, index) => (
             <div key={`container-service${index}`} className="shadow-lg p-2">
-              <p className="font-semibold cursor-pointer" key={service} onClick={() => {
+              <p className="font-semibold cursor-pointer hover:bg-slate-100 duration-200" key={service} onClick={() => {
                 localStorage.setItem("searchService", service)
                 localStorage.removeItem('searchSubService')
               }}
@@ -23,7 +23,7 @@ const Categories = () => {
               <ul className="ml-4 list-disc" key={`ul${service}${index}`}>
                 {
                   services[service].map((subservice, index) => (
-                    <li key={subservice} className="cursor-pointer" onClick={ () => {
+                    <li key={subservice} className="cursor-pointer hover:bg-slate-100 duration-200" onClick={ () => {
                       localStorage.setItem("searchService", service)
                       localStorage.setItem('searchSubService', subservice)
                     }

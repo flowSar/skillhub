@@ -17,7 +17,7 @@ const ForClientSection = ({ isLogged }) => {
               Work with the largest network of independent professionals and get
               things done—from quick turnarounds to big transformations.
             </p>
-            <Link to="sign" className="bg-[#0e8b0e] p-4 max-w-[16rem] space-y-4 mt-[2rem] font-semibold hover:bg-white hover:text-[#0e8b0e] rounded-xl cursor-pointer block">
+            <Link to="sign" className="bg-[#a9c1d6] p-4 max-w-[16rem] space-y-4 mt-[2rem] font-semibold hover:bg-white hover:text-[#0e8b0e] rounded-xl cursor-pointer block">
               <p className="text-2xl w-[12rem]">Post a job and hire a pro</p>
               <p>Talent Marketplace &#x2794;</p>
             </Link>

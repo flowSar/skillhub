@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import TalentImage from "../assets/find-great-work@2x.jpeg";
-
+// import TalentImage from "../assets/find-great-work@2x.jpeg";
+import TalentImage from "../assets/image (20).webp"
 
 const ForTalentSection = ( {isLogged} ) => {
   return (
@@ -11,7 +11,7 @@ const ForTalentSection = ( {isLogged} ) => {
             src={TalentImage}
             className="bg-blue-200 hidden md:inline-block w-[50%] h-[18rem] md:h-full object-cover"
           />
-          <div className=" bg-[#76769c] flex-1 md:w-[50%] h-[18rem] md:h-full text-white p-2 md:p-6 justify-between">
+          <div className=" bg-[#c2e1e9] flex-1 md:w-[50%] h-[18rem] md:h-full text-slate-950 p-2 md:p-6 justify-between">
             <div className="space-y-2">
               <p>For talent</p>
               <p className="text-6xl md:text-5xl lg:text-6xl font-semibold">Find great work</p>

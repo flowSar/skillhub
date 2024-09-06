@@ -1,7 +1,7 @@
 const SearchNav = () => {
   return (
     <>
-      <div className="flex items-center justify-center bg-gray-300 h-[8rem] sm:h-[10rem] md:h-[14rem] lg:h-[20rem] pt-[55px] md:pt-[60px] shadow-lg">
+      <div className="flex items-center justify-center bg-gray-300 h-[8rem] sm:h-[10rem] md:h-[12rem] lg:h-[16rem] pt-[55px] md:pt-[60px] shadow-lg">
         <div className="">
           <input
             type="text"
