@@ -4,6 +4,7 @@ from flask_session import Session
 from api import app_view
 from flask_cors import CORS
 from firebase.firebase_service import firebase, Customer, ServiceProvider, upload_img, get_user_data, set_comments, get_all_comments
+from flask_mail import Mail, Message
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
@@ -13,6 +14,14 @@ Session(app)
 
 app.register_blueprint(app_view)
 
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'your-email@gmail.com'
+app.config['MAIL_PASSWORD'] = 'your-email-password'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+
+mail = Mail(app)
 
 @app.route('/signup/serviceProvider', strict_slashes=False, methods=['POST'])
 def sign_up():
@@ -165,6 +174,19 @@ def get_comments():
     comments = get_all_comments(uid)
     return jsonify(comments), 200
 
+@app.route('/contact', methods=['POST'])
+def contact():
+    email = request.form.get('email')
+    subject = request.form.get('subject')
+    msg = request.form.get('message')
+
+    msg = Message(subject=subject,
+                  sender=email,
+                  recipients=['your-email@gmail.com'])
+    msg.body = msg
+    mail.send(msg)
+
+    return jsonify({}), 200
 
 @app.route('/')
 def Home():
