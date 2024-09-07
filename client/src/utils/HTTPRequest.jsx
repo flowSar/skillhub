@@ -162,4 +162,24 @@ export async function getComments(data) {
     console.error('Error:', error);
     return false;
   }
-} 
+}
+
+export async function updateProfile(data) {
+  // this function will send data for updating the profile
+  try {
+    const response = await fetch('http://localhost:3333/update_profile', {
+      method: 'POST',
+      body: data,
+    });
+
+    if (response.ok) {
+      return  true;
+    } else {
+      console.error('update failed:', response.statusText);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    return false;
+  }
+}

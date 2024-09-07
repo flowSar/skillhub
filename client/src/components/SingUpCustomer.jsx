@@ -24,17 +24,20 @@ const SingUpCustomer = ({ display }) => {
   const navigate = useNavigate();
 
   const handleSignUp = async () => {
-    const result = await SignUp(formData, 'customer');
-    if (!result) {
-      setErrorDisplay('block');
-      alert('sign up failed, try again');
+    if (userNameInput === '' || emailInput === '' || passwordInput === '' || genderInput === '') {
+      alert('(missing info) please be sure to insert all necessary information');
     } else {
-      setUserNameInput('');
-      setEmailInput('');
-      setPasswordInput('');
-      setGenderInput('');
-
-      navigate('/');
+      const result = await SignUp(formData, 'customer');
+      if (!result) {
+        setErrorDisplay('block');
+        alert('sign up failed, try again');
+      } else {
+        setUserNameInput('');
+        setEmailInput('');
+        setPasswordInput('');
+        setGenderInput('');
+        navigate('/');
+      }
     }
   };
 

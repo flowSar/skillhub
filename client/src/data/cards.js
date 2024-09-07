@@ -1,6 +1,3 @@
-import thumbnail from "../assets/thumbnail.png";
-import ProfileImg from "../assets/profileImg.jpg";
-import { useState } from "react";
 
 const servicesUrl = 'http://localhost:3333/api/users';
 

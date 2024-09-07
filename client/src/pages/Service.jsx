@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import SimpleHeader from '../components/SimpleHeader'
-import thumbnail from "../assets/thumbnail.png";
-import ProfileImg from "../assets/profileImg.jpg";
 import userImg from "../assets/user.png";
 
 import { sendComment } from '../utils/HTTPRequest';

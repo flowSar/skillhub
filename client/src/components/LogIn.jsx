@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { SingIn } from "../utils/HTTPRequest";
+import CloseIcon from "../assets/close.svg";
 
 
 const LogIn = ({ display, closeLogInWindows, lognInState}) => {
@@ -32,15 +33,15 @@ const LogIn = ({ display, closeLogInWindows, lognInState}) => {
   return (
     <>
       <div
-        className={`absolute bg-slate-300 text-slate-900 w-[18rem] h-[17rem] md:h-[20rem] md:w-[24rem] right-0 top-[3rem] md:top-[3.7rem] rounded-xl border-2 border-slate-800 ${display}`}
+        className={`absolute bg-slate-50 text-slate-900 w-[18rem] h-[17rem] md:h-[18rem] md:w-[22rem] right-0 top-[3rem] md:top-[3.7rem] border-l border-b border-r rounded-bl-xl border-slate-400 ${display}`}
       >
         <div
-          className="bg-black inline-block px-[0.35rem] md:px-[0.55rem] rounded-[50%] cursor-pointer m-1 text-white"
+          className="inline-block cursor-pointer m-1 text-white"
           onClick={closeLogInWindows}
         >
-          X
+          <img src={CloseIcon} />
         </div>
-        <div className="flex flex-col justify-center items-center p-4">
+        <div className="flex flex-col justify-center items-center ">
           <h1 className="text-3xl font-semibold font-serif mb-[1rem] underline">
             Log in
           </h1>
@@ -54,7 +55,7 @@ const LogIn = ({ display, closeLogInWindows, lognInState}) => {
             onChange={handlePasswordChange}
           />
           <button
-            className="bg-red-400 px-10 py-2 rounded-xl hover:bg-red-600 hover:font-semibold hover:outline hover:outline-black js-login-submit"
+            className="bg-red-400 px-8 py-[0.4rem] rounded-xl text-slate-900 hover:bg-red-600 hover:font-semibold hover:outline hover:outline-black js-login-submit hover:text-white"
             onClick={handleLogInClick}
           >
             Log in

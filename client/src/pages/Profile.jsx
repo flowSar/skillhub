@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { services } from '../data/services';
-import { Link } from 'react-router-dom';
-import { getuserInfo } from '../utils/HTTPRequest';
+import { Link, useNavigate } from 'react-router-dom';
+import { getuserInfo, updateProfile } from '../utils/HTTPRequest';
 
 import SimpleHeader from '../components/SimpleHeader'
 import Footer from '../components/Footer';
@@ -11,17 +11,14 @@ const Profile = () => {
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'friday', 'saturday', 'sunday'];
   const [firstName , setFirstName] = useState("");
   const [lastName , setLastName] = useState("");
-  const [email , setEmail] = useState("");
-  const [password, setpassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [address, setAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [city, setCity] = useState("");
-  const [country, setCountry] = useState("Morocco");
+  const [country, setCountry] = useState("");
   const [workingDays, setWorkingDays] = useState([]);
-  const [profileImage, setProfileImage] = useState(null);
-  const [thumbnailmage, setThumbnailImage] = useState("");
   const [service, setSevice] = useState("");
-  const [gender, setGender] = useState("");
   const [description, setDescription] = useState("");
   const [errroVisible, setErrroVisible] = useState("hidden");
   const [subService, setSubservices] = useState([]);
@@ -30,8 +27,10 @@ const Profile = () => {
   const handlelastNameChange = (event) => setLastName(event.target.value);
   const handleAddressChange = (event) => setAddress(event.target.value);
   const handlePhoneNumberChange = (event) => setPhoneNumber(event.target.value);
+  const handlePasswordChange = (event) => setPassword(event.target.value);
   const handleCityChange = (event) => setCity(event.target.value);
   const handleCountryChange = (event) => setCountry(event.target.value);
+  const navigate = useNavigate()
   const [dataLoaded, setDateLoaded] = useState(false);
   const handleDaysChange = (event) => {
     const { value, checked } = event.target;
@@ -41,8 +40,7 @@ const Profile = () => {
       setWorkingDays(workingDays.filter((item) => item !== value));
     }
   }
-  const handleProfileImageChange = (event) => setProfileImage(event.target.files[0]);
-  const handleThumbnailImageChange = (event) => setThumbnailImage(event.target.files[0]);
+ 
   const handleServiceChange = (event) => setSevice(event.target.value);
   const handleDescriptionChange = (event) => setDescription(event.target.value);
 
@@ -55,18 +53,23 @@ const Profile = () => {
   formData.append('phone_number', phoneNumber)
   formData.append('city', city)
   formData.append('country', country)
+  formData.append('address', address)
   formData.append('working_days', workingDays)
-  formData.append('profile_img', profileImage)
-  formData.append('thumbnail_img', thumbnailmage)
-  formData.append('service', service)
-  formData.append('gender', gender)
   formData.append('description', description)
+  formData.append('uid', localStorage.getItem('user_id'));
 
   // this function handle sign up click
   const handleSignup = async () => {
     // when we click on sign up we call this fuction with data and usertype (customer, serviceProvider)
     //updateServiceProvider(formData)
-    alert('this feature is not working for now');
+    
+    const result = await updateProfile(formData);
+    if (result === true) {
+      alert('your profile has been updated');
+      navigate('/profile');
+    } else {
+      alert('update failed be sure your password is correct');
+    }
   };
 
   const handleSubServiceSelected = () => {};
@@ -79,22 +82,24 @@ const Profile = () => {
         setUserData(data);
         setFirstName(data.first_name);
         setLastName(data.last_name);
+        setEmail(data.email);
         setAddress(data.address);
         setPhoneNumber(data.phone_number);
         setCity(data.city);
+        setCountry(data.country)
         setDescription(data.description);
-        setWorkingDays(data.working_days);
+        setWorkingDays(data.working_days.split(','));
         setDateLoaded(true);
-        setSevice(data.services)
+        setSevice(data.service)
         setSubservices(data.sub_service.split(','))
+      } else {
+        alert("if you're not a service provider you can't see your profile information but if you're please wait or reload the page or check you connection");
       }
     };
     
     fetchData();
   }, []);
-
-
-
+  
   return (
     <>
       <SimpleHeader />
@@ -103,6 +108,14 @@ const Profile = () => {
         <div className="space-y-2 md:space-y-4">
           <p className={`text-center text-red-500 ${errroVisible}`}>please ensure that you filled all the required information</p>
           <p className={`text-center text-red-500 ${errroVisible}`}>sign up failed this email is already exist</p>
+          <div className='gap-2 flex'>
+              <p className='w-[21.5rem]'>Enter your current Password to so you can save changes</p>
+              <input 
+              type='password' 
+              className="input-style w-[20rem] shadow-lg"
+              value={password} 
+              onChange={handlePasswordChange} />
+          </div>
           <div className="flex gap-2 md:gap-8 flex-col md:flex-row">
             <div className='shadow-lg'>
               <p>First name</p>
@@ -161,7 +174,7 @@ const Profile = () => {
             <div className='shadow-lg'>
               <p>Country</p>
               <select className="input-style w-[20rem] bg-white">
-                <option>Morocco</option>
+                <option>{ country }</option>
               </select>
             </div>
           </div>
@@ -181,16 +194,6 @@ const Profile = () => {
               </label>
               ))}
             </div>
-          </div>
-          <div className="flex flex-col w-[20rem] md:w-auto shadow-lg">
-            <label>
-            Upload Profile Image:
-              <input type="file" name="profile" accept="image/*" className="ml-4" onChange={handleProfileImageChange}/>
-            </label>
-            <label className="my-2">
-            Upload Thumbnail for Service: 
-              <input type="file" name="thumbnail" accept="image/*" required className="ml-4" onChange={handleThumbnailImageChange}/>
-            </label>
           </div>
           <div className="flex gap-4 flex-col border-t-4 border-x-black pt-2 shadow-lg">
           <div className="space-y-2 space-x-2 md:flex-row gap-2 items-center w-[20rem] md:w-auto">

@@ -81,24 +81,42 @@ const SignUpFreelancer = ({ display }) => {
   // this function handle sign up click
   const handleSignup = () => {
     // when we click on sign up we call this fuction with data and usertype (customer, serviceProvider)
-    const result = SignUp(formData, 'serviceProvider')
-    if (!result) {
-      setErrroVisible('block');
-      alert('Sign up failed try again');
+    if (firstName === ''
+      ||lastName === ''
+      ||email === ''
+      || password === ''
+      || phoneNumber === ''
+      || address === ''
+      || city === ''
+      || workingDays.length === 0
+      || profileImage === ''
+      || thumbnailmage === ''
+      ||service === ''
+      || subService.length === 0
+      || gender === ''
+      ||description === '') {
+        alert('(missing info) please be sure to insert all necessary information');
     } else {
-      // setFirstName('');
-      // setLastName('');
-      // setEmail('');
-      // setpassword('');
-      // setAddress('');
-      // setPhoneNumber('');
-      // setCity('');
-      // setCountry('Morocco');
-      // setProfileImage('');
-      // setThumbnailImage('');
-      // setGender('Gender');
-      // setDescription('');
+      const result = SignUp(formData, 'serviceProvider')
+      if (!result) {
+        setErrroVisible('block');
+        alert('Sign up failed try again');
+      } else {
+        // setFirstName('');
+        // setLastName('');
+        // setEmail('');
+        // setpassword('');
+        // setAddress('');
+        // setPhoneNumber('');
+        // setCity('');
+        // setCountry('Morocco');
+        // setProfileImage('');
+        // setThumbnailImage('');
+        // setGender('Gender');
+        // setDescription('');
+      }
     }
+
   };
 
   return (
