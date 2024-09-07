@@ -5,6 +5,7 @@ import andoidImg from "../assets/android.png"
 import connectImg from "../assets/connect.png"
 import browserThrough from "../assets/browserThrough-1.webp"
 import chooseUsImage from "../assets/chooseUsImage.webp"
+import Footer from "../components/Footer";
 
 
 
@@ -27,7 +28,7 @@ const About = () => {
       <img src={chooseUsImage} className="h-[18rem] w-auto object-contain"/>
       <p>At SkillHub, we do not verify service providers ourselves. Instead, we evaluate them based on customer feedback regarding the services they provide. Our goal is to save you time and effort by connecting you with experts who have been reviewed and recommended by other users.</p>
 
-      <Link to="/Categories" className="bg-slate-500 p-3 w-[14.8rem] text-white font-semibold text-xl">Explore Our Services &#129034;</Link>
+      <Link to="/Categories" className="btn-scale bg-slate-500 p-3 w-[14.8rem] text-white font-semibold text-xl">Explore Our Services &#129034;</Link>
 
       <section className="">
         <h2 className="text-xl font-semibold">Meet Our Team</h2>
@@ -39,7 +40,7 @@ const About = () => {
       </section>
     </div>
     
-    
+      <Footer />
     </>
   );
 };

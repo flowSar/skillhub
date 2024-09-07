@@ -6,6 +6,7 @@ const Categories = () => {
 
   localStorage.removeItem("searchService",)
   localStorage.removeItem('searchSubService')
+  localStorage.removeItem('navBarSearchWord');
 
   return (
     <>

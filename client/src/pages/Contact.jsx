@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { services } from "../data/services.js";
 import SimpleHeader from "../components/SimpleHeader.jsx";
+import Footer from "../components/Footer.jsx";
 
 
 const Contact = () => {
@@ -75,7 +76,7 @@ const Contact = () => {
           </div>
         </div>
       </div>
-
+      <Footer />
     </>
   );
 };

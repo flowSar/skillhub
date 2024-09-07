@@ -3,6 +3,7 @@ import InputForm from "../components/InputForm";
 import SingUpCustomer from "../components/SingUpCustomer";
 import SignUpFreelancer from "../components/SignUpFreelancer";
 import SimpleHeader from "../components/SimpleHeader";
+import Footer from "../components/Footer";
 
 const SignUp = () => {
   const [selectedOption, setSelectedOption] = useState("");

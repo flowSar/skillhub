@@ -29,7 +29,7 @@ const ForTalentSection = ( {isLogged} ) => {
                 <p className="p-2">Control when, where, and how you work</p>
                 <p className="p-2">Explore different ways to earn</p>
               </div>
-              <button className="text-blue-600 bg-white py-2 px-8 rounded-lg mt-3">
+              <button className="btn-scale text-blue-600 bg-white py-2 px-8 rounded-lg mt-3">
                 <Link to='/sign'>Find opportunities</Link>
               </button>
             </div>

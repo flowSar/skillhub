@@ -55,3 +55,15 @@
     line-height: 1.5rem; /* Adjust according to your text size */
     max-height: 3rem; /* 2 lines * line height */
   }
+
+  /* change icon scale */
+.icon-scale:hover {
+    transform: scale(1.2);
+    transition: transform 0.3s ease;
+}
+
+.btn-scale:hover {
+    transform: scale(1.05);
+    transition: transform 0.4s ease;
+}
+

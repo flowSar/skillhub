@@ -3,12 +3,16 @@ import SimpleHeader from "../components/SimpleHeader";
 import { Link, useLocation } from "react-router-dom";
 import { loadAllServiceProviders } from "../data/cards";
 import CardsGrid from "../components/CardsGrid";
-import Card from "../components/Card";
 import { LoadLogInState } from "../utils/HTTPRequest";
+import Footer from "../components/Footer";
 
 function SearchResults() {
   const [cardsdata, setCardsData] = useState([]);
   const [dataLoaded, setDataLoaded] = useState('block');
+  const subservice = localStorage.getItem('searchSubService');
+  const  service  = localStorage.getItem('searchService');
+  const [isLogged, setLogged] = useState(false);
+  const searchWord = localStorage.getItem('navBarSearchWord');
 
 
 
@@ -24,11 +28,7 @@ function SearchResults() {
     loadData();
   }, []);
 
-  const subservice = localStorage.getItem('searchSubService');
-  const  service  = localStorage.getItem('searchService');
-  console.log('search: for service', service);
 
-  const [isLogged, setLogged] = useState(false);
   useEffect(() => {
     // this function if for check if the user is log in by checking for a session is exist in the server 
     // we call LoadLogInStatet function that will send a request to the server with user_id to check if the user has a session on the server to 
@@ -52,20 +52,34 @@ function SearchResults() {
     LoadDataFromDb();
   }, []); 
 
-  let filtredByService = cardsdata.filter((card) => card.service === service);
-  filtredByService.map((item) => {
-    if (item.sub_service && typeof item.sub_service === 'string') {
-      item.sub_service = item.sub_service.split(',');
-    }
-    return item;
-  });
+  let filtredByService = [];
+  let filteredBySubService = [];
 
-  let filteredBySubService = filtredByService.filter((card) => {
-    if (card.sub_service.includes(subservice)) {
-      return true
-    }
-    return false
-  });
+  if (searchWord) {
+    filtredByService = cardsdata.filter((card) => {
+      if (card.service.toLowerCase().includes(searchWord) || card.sub_service.toLowerCase().includes(searchWord)) {
+        return true;
+      }
+      return false;
+    });
+  } else {
+    filtredByService = cardsdata.filter((card) => card.service === service);
+    filtredByService.map((item) => {
+      if (item.sub_service && typeof item.sub_service === 'string') {
+        item.sub_service = item.sub_service.split(',');
+      }
+      return item;
+    });
+  
+    filteredBySubService = filtredByService.filter((card) => {
+      if (card.sub_service.includes(subservice)) {
+        return true
+      }
+      return false
+    });
+  }
+
+
 
 
   console.log('filteredBySubService', filteredBySubService);
@@ -74,7 +88,7 @@ function SearchResults() {
     <>
       <SimpleHeader />
       <div className="p-4 bg-slate-50 shadow-lg mt-8 mb-4">
-        <p className="text-center text-xl font-semibold underline"> {service} <span className={`text-red-800 inline-block ml-2 ${subservice? 'block': 'hidden'}`}>({subservice})</span></p>
+        <p className="text-center text-xl font-semibold underline"> {service} {searchWord} <span className={`text-red-800 inline-block ml-2 ${subservice? 'block': 'hidden'}`}>({subservice})</span></p>
       </div>
       { filtredByService.length === 0?
         <div className="h-screen flex justify-center items-center p-10  text-xl md:text-4xl text-slate-900">
@@ -91,7 +105,6 @@ function SearchResults() {
         <p className="w-[8rem] text-center">Please wait...</p>
         <div className="spinner"></div>
       </div>
-
     </>
   )
 }

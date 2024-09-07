@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { getuserInfo } from '../utils/HTTPRequest';
 
 import SimpleHeader from '../components/SimpleHeader'
+import Footer from '../components/Footer';
 
 const Profile = () => {
   const [userData, setUserData] = useState({});
@@ -252,6 +253,7 @@ const Profile = () => {
           ""
         }
       </div>
+      <Footer />
     </>
   );
 }
