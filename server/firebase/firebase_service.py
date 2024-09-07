@@ -144,6 +144,7 @@ class ServiceProvider:
         except Exception as e:
             print('error: ',e)
             return False
+    
 
 def get_all_service_providers():
     try:
@@ -165,6 +166,19 @@ def get_all_service_providers():
     except Exception as e:
         print('erro get all service providers')
         return []
+
+def update_user_data(user_data):
+    try:
+        auth = firebase.auth()
+        db = firebase.database()
+        user = auth.sign_in_with_email_and_password(user_data.get('email'), user_data.get('password'))
+        user_token = user['idToken']
+        uid = user_data['uid']
+        print(db.child('service_providers').child(uid).update(user_data, token=user_token))
+        return True
+    except Exception as e:
+        print(e)
+        return False
 
 def get_user_data(user_id):
     try:

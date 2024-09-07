@@ -3,7 +3,7 @@ from flask import Flask, jsonify, request, session
 from flask_session import Session
 from api import app_view
 from flask_cors import CORS
-from firebase.firebase_service import firebase, Customer, ServiceProvider, upload_img, get_user_data, set_comments, get_all_comments
+from firebase.firebase_service import firebase, Customer, ServiceProvider, upload_img, get_user_data, set_comments, get_all_comments, update_user_data
 from flask_mail import Mail, Message
 
 app = Flask(__name__)
@@ -94,6 +94,48 @@ def sign_up_customer():
              print('error sign up :', signed_in_user)
              return jsonify({'error': 'signup failed'}), 409
 
+@app.route('/update_profile', strict_slashes=False, methods=['POST'])
+def update_profile():
+    uid = request.form.get('uid')
+    # thumbnail_img = request.files.get('thumbnail_img')
+    # profile_img = request.files.get('profile_img')
+    first_name = request.form.get('first_name')
+    last_name = request.form.get('last_name')
+    email = request.form.get('email')
+    password = request.form.get('password')
+    # profile_img_url = upload_img(f'/img/profile/{first_name}-{last_name}.png', profile_img)
+    # thumbnail_img_url = upload_img(f'/img/thumbanil/{first_name}-{last_name}.png', thumbnail_img)
+    address = request.form.get('address')
+    phone_number = request.form.get('phone_number')
+    city = request.form.get('city')
+    country = request.form.get('country')
+    working_days = request.form.get('working_days')
+    description = request.form.get('description')
+    # profile_img = profile_img_url
+    # thumbnail_img = thumbnail_img_url
+    user_data = {
+        "uid": uid,
+        "first_name": first_name,
+        "last_name": last_name,
+        "email": email,
+        "password": password,
+        "address": address,
+        "phone_number": phone_number,
+        "city": city,
+        "country": country,
+        "working_days": working_days,
+        "description": description,
+        # "profile_img": profile_img,
+        # "thumbnail_img": thumbnail_img
+        }
+    result = update_user_data(user_data)
+    print('result', result);
+    if result is True:
+        return jsonify({'status': 'update is success'}), 200
+    else:
+        return jsonify({'status': 'update failed'}), 409
+
+
 @app.route('/signin', strict_slashes=False, methods=['GET','POST'])
 def sign_in():
     auth = firebase.auth()
@@ -119,7 +161,6 @@ def log_in():
     user_id = data.get('user_id')
     if user_id:
         if user_id == session.get(str(user_id)):
-            print(f'user_id {user_id} == {session.get(str(user_id))}')
             return jsonify({}), 200
         else:
             return jsonify({}), 409
@@ -157,6 +198,7 @@ def get_user():
 
 @app.route('/comment', strict_slashes=False, methods = ['POST'])
 def set_comment():
+    """route for pusing comment to realtime database"""
     comment = request.form.get('comment')
     user_name = request.form.get('user_name')
     uid = request.form.get('uid')
@@ -169,6 +211,7 @@ def set_comment():
 
 @app.route('/comments', strict_slashes=False, methods = ['POST'])
 def get_comments():
+    """route loading comments from realtime database"""
     uid = request.get_json().get('uid');
     print('uid: ', uid)
     comments = get_all_comments(uid)
@@ -176,17 +219,21 @@ def get_comments():
 
 @app.route('/contact', methods=['POST'])
 def contact():
-    email = request.form.get('email')
-    subject = request.form.get('subject')
-    msg = request.form.get('message')
+    """route for sending msg"""
+    try:
+        email = request.form.get('email')
+        subject = request.form.get('subject')
+        msg = request.form.get('message')
 
-    msg = Message(subject=subject,
-                  sender=email,
-                  recipients=['your-email@gmail.com'])
-    msg.body = msg
-    mail.send(msg)
+        msg = Message(subject=subject,
+                    sender=email,
+                    recipients=['your-email@gmail.com'])
+        msg.body = msg
+        mail.send(msg)
 
-    return jsonify({}), 200
+        return jsonify({}), 200
+    except Exception as e:
+        return jsonify({"error": "sending msg was failed"}), 409
 
 @app.route('/')
 def Home():
