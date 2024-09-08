@@ -6,7 +6,7 @@ import metaIcon from "../assets/meta-icon.png"
 const Footer = () => {
   return (
     <>
-      <div className="bottom-0 right-0 left-0 xl:right-[10rem] xl:left-[10rem] z-40 h-[3rem] md:h-[4rem] bg-slate-50 flex items-center justify-center text-slate-950 gap-4 mb-2 border-t border-x border-slate-500 font-semibold text-lg shadow-lg shadow-black">
+      <div className="bottom-0 right-0 left-0 xl:right-[10rem] xl:left-[10rem] z-40 h-[3rem] md:h-[4rem] bg-slate-50 flex items-center justify-center text-slate-950 gap-4 mb-2 border-t border-x border-slate-500 font-semibold text-lg shadow-lg shadow-slate-500">
         <p className="">© 2024 skillHub</p>
         <p>Follow us</p>
         <div className="flex gap-2 items-center">

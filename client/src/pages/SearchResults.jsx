@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import SimpleHeader from "../components/SimpleHeader";
-import { Link, useLocation } from "react-router-dom";
 import { loadAllServiceProviders } from "../data/cards";
 import CardsGrid from "../components/CardsGrid";
 import { LoadLogInState } from "../utils/HTTPRequest";
-import Footer from "../components/Footer";
+
 
 function SearchResults() {
   const [cardsdata, setCardsData] = useState([]);
@@ -60,7 +59,7 @@ function SearchResults() {
       if (card.service.toLowerCase().includes(searchWord) || card.sub_service.toLowerCase().includes(searchWord)) {
         return true;
       }
-      return false;
+      return true;
     });
   } else {
     filtredByService = cardsdata.filter((card) => card.service === service);
@@ -79,10 +78,6 @@ function SearchResults() {
     });
   }
 
-
-
-
-  console.log('filteredBySubService', filteredBySubService);
 
   return (
     <>

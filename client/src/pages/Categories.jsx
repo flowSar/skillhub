@@ -2,11 +2,13 @@
 import { Link } from "react-router-dom";
 import { services } from "../data/services";
 import SimpleHeader from "../components/SimpleHeader";
+import { useState } from "react";
 const Categories = () => {
 
   localStorage.removeItem("searchService",)
   localStorage.removeItem('searchSubService')
   localStorage.removeItem('navBarSearchWord');
+  const [lisDisplay, setListDisplay] = useState(false);
 
   return (
     <>
@@ -21,7 +23,7 @@ const Categories = () => {
                 localStorage.removeItem('searchSubService')
               }}
               ><Link to="/SearchResults">{ service }</Link></p>
-              <ul className="ml-4 list-disc" key={`ul${service}${index}`}>
+              <ul className={`ml-4 list-disc`} key={`ul${service}${index}`}>
                 {
                   services[service].map((subservice, index) => (
                     <li key={subservice} className="cursor-pointer hover:bg-slate-100 duration-200" onClick={ () => {

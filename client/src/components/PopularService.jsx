@@ -6,6 +6,10 @@ import Building from "../assets/Building.svg";
 import { Link } from "react-router-dom";
 
 const PopularService = () => {
+  // remove all stored search wordbefore seashing for another service
+  localStorage.removeItem("searchService",)
+  localStorage.removeItem('searchSubService')
+  localStorage.removeItem('navBarSearchWord');
   return (
     <>
       <ul className="horizontal-list">

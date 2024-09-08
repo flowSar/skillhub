@@ -9,13 +9,15 @@ export async function SignUp(data, userType) {
 
     if (response.ok) {
       console.log('Signup successful');
-      return true;
+      const rData = await response.json();
+      return {result: true, rData};
     } else {
-      console.error('Signup failed:', response.statusText);
-      return false;
+      const rData = await response.json();
+      console.error('Signup failed:', rData.error);
+      return {result: false, rData: rData.error};
     }
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Signup failed:', response.statusText);
     return false;
   }
 }

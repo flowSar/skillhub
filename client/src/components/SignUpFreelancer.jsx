@@ -20,7 +20,8 @@ const SignUpFreelancer = ({ display }) => {
   const [service, setSevice] = useState("");
   const [gender, setGender] = useState("");
   const [description, setDescription] = useState("");
-  const [errroVisible, setErrroVisible] = useState("hidden");
+  const [emailExistError, setEmailExistError] = useState("hidden");
+  const [inputInsertError, setinputInsertError] = useState('hidden');
   const [subService, setSubservices] = useState([]);
 
   const handleFirstNameChnage = (event) => setFirstName(event.target.value);
@@ -79,7 +80,7 @@ const SignUpFreelancer = ({ display }) => {
   formData.append('description', description)
 
   // this function handle sign up click
-  const handleSignup = () => {
+  const handleSignup = async () => {
     // when we click on sign up we call this fuction with data and usertype (customer, serviceProvider)
     if (firstName === ''
       ||lastName === ''
@@ -96,24 +97,27 @@ const SignUpFreelancer = ({ display }) => {
       || gender === ''
       ||description === '') {
         alert('(missing info) please be sure to insert all necessary information');
+        setinputInsertError('block');
     } else {
-      const result = SignUp(formData, 'serviceProvider')
-      if (!result) {
+      const result = await SignUp(formData, 'serviceProvider')
+      if (!result.result) {
         setErrroVisible('block');
-        alert('Sign up failed try again');
+        alert(`Sign up failed try again ${result.rData}`);
+        setEmailExistError('block');
       } else {
-        // setFirstName('');
-        // setLastName('');
-        // setEmail('');
-        // setpassword('');
-        // setAddress('');
-        // setPhoneNumber('');
-        // setCity('');
-        // setCountry('Morocco');
-        // setProfileImage('');
-        // setThumbnailImage('');
-        // setGender('Gender');
-        // setDescription('');
+        alert('the account was created successfuly');
+        setFirstName('');
+        setLastName('');
+        setEmail('');
+        setpassword('');
+        setAddress('');
+        setPhoneNumber('');
+        setCity('');
+        setCountry('Morocco');
+        setProfileImage('');
+        setThumbnailImage('');
+        setGender('Gender');
+        setDescription('');
       }
     }
 
@@ -123,8 +127,8 @@ const SignUpFreelancer = ({ display }) => {
     <>
       <div className={`border-2 border-slate-400 p-6 rounded-xl ${display}`}>
         <div className="space-y-2 md:space-y-4">
-          <p className={`text-center text-red-500 ${errroVisible}`}>please ensure that you filled all the required information</p>
-          <p className={`text-center text-red-500 ${errroVisible}`}>sign up failed this email is already exist</p>
+          <p className={`text-center text-red-500 ${inputInsertError}`}>please ensure that you filled all the required information</p>
+          <p className={`text-center text-red-500 ${emailExistError}`}>sign up failed this email is already exist</p>
           <div className="flex gap-2 md:gap-8 flex-col md:flex-row">
             <div>
               <p>First name</p>
@@ -254,7 +258,9 @@ const SignUpFreelancer = ({ display }) => {
               }
             </select>
 
-            <select className="w-[20rem] md:w-[10rem] h-[2.5rem] p-2 text-center " onChange={handleSubServiceSelected}>
+            <select 
+            className="w-[20rem] md:w-[10rem] h-[2.5rem] p-2 text-center "
+            onChange={handleSubServiceSelected}>
               <option value="" disabled selected>Sub-Service</option>
               {service &&
                 services[service].map((subService, index) => (

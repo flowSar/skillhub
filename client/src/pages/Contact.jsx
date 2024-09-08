@@ -42,7 +42,7 @@ const Contact = () => {
       <SimpleHeader />
       <div className="flex flex-col pt-[4rem] items-center h-screen w-full">
         <h2 className="text-xl">Get in Touch</h2>
-        <p className="p-4">If you have any questions, suggestions, or need support, feel free to reach out to us. We'd love to hear from you! And if you have a skill that does not exist in the category, you can contact us.</p>
+        <p className="p-4 w-[40rem]">If you have any questions, suggestions, or need support, feel free to reach out to us. We'd love to hear from you! And if you have a skill that does not exist in the category, you can contact us.</p>
         <div className="flex flex-col gap-2 sm:mt-[3rem] items-center">
 
           <div className=" flex items-center gap-[4rem]">
