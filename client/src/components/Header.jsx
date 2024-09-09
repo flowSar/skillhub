@@ -97,10 +97,10 @@ const Header = () => {
           </a>
           </div>
         <div className="flex items-center cursor-pointer">
-          <div className=" group hover:bg-[#60606e] hover:text-white px-2 py-2 duration-300" href="">
+          <div className=" group hover:bg-[#e2e2eb] rounded-lg px-2 py-2 duration-300" href="">
             <Link to="/Categories">Categories</Link>
           </div>
-          <Link className=" hover:bg-[#60606e] hover:text-white  px-4 py-2 duration-300"
+          <Link className=" hover:bg-[#e2e2eb] rounded-lg px-4 py-2 duration-300"
           to={
             {
               pathname: '/about',
@@ -110,7 +110,7 @@ const Header = () => {
           >
             about
           </Link>
-          <Link className=" hover:bg-[#60606e] hover:text-white  px-2 py-2 duration-300" to="/contact">
+          <Link className=" hover:bg-[#e2e2eb]  px-2 py-2 duration-300 rounded-lg" to="/contact">
             Contact us
           </Link>
         </div>
@@ -129,12 +129,12 @@ const Header = () => {
             <div className={`space-x-1 mr-2`}>
             <Link
               to="/sign"
-              className="hover:bg-[#2b2b5a] hover:text-white  px-1 py-2 md:px-4 md:py-[0.6rem] hover:border-2 duration-300"
+              className="hover:bg-[#e2e2eb]  px-1 py-2 md:px-4 md:py-[0.6rem] hover:border-2 duration-300"
             >
             Sign Up
             </Link>
             <div
-              className=" hover:bg-[#2b2b5a] hover:text-white hover:border-2 px-2 py-2 md:px-4 md:py-2 inline-block  cursor-pointer duration-300"
+              className=" hover:bg-[#e2e2eb] hover:border-2 px-2 py-2 md:px-4 md:py-2 inline-block  cursor-pointer duration-300"
               onClick={displayLognIn}
             >
               Log in

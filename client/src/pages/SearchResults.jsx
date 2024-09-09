@@ -11,7 +11,8 @@ function SearchResults() {
   const subservice = localStorage.getItem('searchSubService');
   const  service  = localStorage.getItem('searchService');
   const [isLogged, setLogged] = useState(false);
-  const searchWord = localStorage.getItem('navBarSearchWord');
+  const searchKeyWord = localStorage.getItem('navBarSearchWord');
+  const locationSearch =   localStorage.getItem('locationSearch');
 
 
 
@@ -54,13 +55,21 @@ function SearchResults() {
   let filtredByService = [];
   let filteredBySubService = [];
 
-  if (searchWord) {
+  if (searchKeyWord) {
     filtredByService = cardsdata.filter((card) => {
-      if (card.service.toLowerCase().includes(searchWord) || card.sub_service.toLowerCase().includes(searchWord)) {
+      if (card.service.toLowerCase().includes(searchKeyWord) || card.sub_service.toLowerCase().includes(searchKeyWord)) {
         return true;
       }
       return true;
     });
+    if (locationSearch) {
+      filtredByService = filtredByService.filter((card) => {
+        if (card.city.toLowerCase().includes(locationSearch)) {
+          return true
+        }
+        return false
+      });
+    }
   } else {
     filtredByService = cardsdata.filter((card) => card.service === service);
     filtredByService.map((item) => {
@@ -83,7 +92,7 @@ function SearchResults() {
     <>
       <SimpleHeader />
       <div className="p-4 bg-slate-50 shadow-lg mt-8 mb-4">
-        <p className="text-center text-xl font-semibold underline"> {service} {searchWord} <span className={`text-red-800 inline-block ml-2 ${subservice? 'block': 'hidden'}`}>({subservice})</span></p>
+        <p className="text-center text-xl font-semibold underline"> {service} {searchKeyWord} <span className={`text-red-800 inline-block ml-2 ${subservice? 'block': 'hidden'}`}>({subservice})</span></p>
       </div>
       { filtredByService.length === 0?
         <div className="h-screen flex justify-center items-center p-10  text-xl md:text-4xl text-slate-900">

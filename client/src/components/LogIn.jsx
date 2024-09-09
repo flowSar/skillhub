@@ -61,7 +61,9 @@ const LogIn = ({ display, closeLogInWindows, lognInState}) => {
             Log in
           </button>
         </div>
+        
       </div>
+     
     </>
   );
 };

@@ -8,6 +8,7 @@ const Categories = () => {
   localStorage.removeItem("searchService",)
   localStorage.removeItem('searchSubService')
   localStorage.removeItem('navBarSearchWord');
+  localStorage.removeItem('locationSearch');
   const [lisDisplay, setListDisplay] = useState(false);
 
   return (

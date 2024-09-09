@@ -49,12 +49,12 @@ function Service() {
           setLogingState(true);
           console.log('is logged', loginState);
         } else {
-          navigate('/');
+          navigate('/sign');
         }
 
       } else {
         console.log('your not loged yet');
-        navigate('/');
+        navigate('/sign');
       }
     };
     // when the page is loaded we call this function to check if the user is log in 
