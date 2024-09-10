@@ -10,6 +10,8 @@ app = Flask(__name__)
 CORS(app, supports_credentials=True)
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SECRET_KEY'] = 'supersecretkey'
+app.config['SESSION_COOKIE_SECURE'] = True
+app.config['SESSION_COOKIE_DOMAIN'] = 'https://skillhub-delta.vercel.app/'
 Session(app)
 
 app.register_blueprint(app_view)

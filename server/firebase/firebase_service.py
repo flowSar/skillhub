@@ -185,12 +185,10 @@ def get_user_data(user_id):
         user = auth.refresh(user['refreshToken'])
         user_token = user['idToken']
         user = db.child('service_providers').child(user_id).get(user_token)
-        user_data = {}
+        user_data = user.val()
         if user_id:
-            for u in user:
-                user_data[u.key()] = u.val()
-                print('user', user_data)
-        return user_data
+            return user_data
+        return False
     except Exception as e:
         return {}
 
@@ -239,7 +237,8 @@ def get_all_comments(uid):
         for comment in data.values():
             all_comments.append(comment)
         return all_comments
-    except:
+    except Exception as e:
+        print('error gettingcomment', e)
         return False
 
 
