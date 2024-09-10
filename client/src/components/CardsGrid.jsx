@@ -10,9 +10,7 @@ const CardsGrid = ({ isLogged, cardsdata, cardNumber, display }) => {
   localStorage.setItem('card_uid', cardsdata.uid);
   localStorage.setItem('card_data', JSON.stringify(cardsdata));
   const handleCardClick = () => {
-    localStorage.setItem('card_uid', cardsdata.uid);
-    localStorage.setItem('card_data', JSON.stringify(cardsdata));
-    navigate('/service');
+
 
   };
 
@@ -26,7 +24,11 @@ const CardsGrid = ({ isLogged, cardsdata, cardNumber, display }) => {
                 <Card
                   key={index}
                   data = {cardData}
-                  onClick={handleCardClick}
+                  onClick={() => {
+                    localStorage.setItem('card_uid', cardData.uid);
+                    localStorage.setItem('card_data', JSON.stringify(cardData));
+                    navigate('/service');
+                  }}
                   isLogged={isLogged}
               />
               </Link>

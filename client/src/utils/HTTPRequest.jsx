@@ -2,7 +2,7 @@
 
 export async function SignUp(data, userType) {
   try {
-    const response = await fetch(`http://localhost:3333/signup/${userType}`, {
+    const response = await fetch(`https://skillhub-1.onrender.com/signup/${userType}`, {
       method: 'POST',
       body: data,
     });
@@ -24,7 +24,7 @@ export async function SignUp(data, userType) {
 
 export async function SingIn(data) {
   try {
-    const response = await fetch(`http://localhost:3333/signin`, {
+    const response = await fetch(`https://skillhub-1.onrender.com/signin`, {
       method: 'POST',
       credentials: 'include',
       body: data,
@@ -51,7 +51,7 @@ export async function SingIn(data) {
 
 export async function LoadLogInState(data) {
   try {
-    const response = await fetch(`http://localhost:3333/loginStat`, {
+    const response = await fetch(`https://skillhub-1.onrender.com/loginStat`, {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -74,7 +74,7 @@ export async function LoadLogInState(data) {
 
 export async function LogOut(data) {
   try {
-    const response = await fetch(`http://localhost:3333/logout`, {
+    const response = await fetch(`https://skillhub-1.onrender.com/logout`, {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -96,7 +96,7 @@ export async function LogOut(data) {
 
 export async function getuserInfo() {
   try {
-    const response = await fetch('http://localhost:3333/user', {
+    const response = await fetch('https://skillhub-1.onrender.com/user', {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -124,7 +124,7 @@ export async function getuserInfo() {
 
 export async function sendComment(data) {
   try {
-    const response = await fetch('http://localhost:3333/comment', {
+    const response = await fetch('https://skillhub-1.onrender.com/comment', {
       method: 'POST',
       body: data,
     });
@@ -144,7 +144,7 @@ export async function sendComment(data) {
 
 export async function getComments(data) {
   try {
-    const response = await fetch('http://localhost:3333/comments', 
+    const response = await fetch('https://skillhub-1.onrender.com/comments', 
       {
         method: 'POST',
         headers: {

@@ -12,7 +12,7 @@ function Service() {
   const [userName, setUserName] = useState(localStorage.getItem('email'));
   const [isLoading, setIsLoading] = useState(false);
   const [comments, setComments] = useState([]);
-  const cardData = JSON.parse(localStorage.getItem('card_data'))[0];
+  const cardData = JSON.parse(localStorage.getItem('card_data'));
   const [loginState, setLogingState] = useState(false);
   const handleCommentChange = (event) => setComment(event.target.value);
   const navigate = useNavigate();
@@ -62,13 +62,13 @@ function Service() {
   }, []); 
 
   useEffect(()=>{
-
     const serviceUid = cardData.uid; 
     const loadComments = async () => {
       const loadedcomment = await getComments({
         uid: serviceUid,
       });
       if (loadComments) {
+        console.log('loadedcomment', loadedcomment)
         setComments(loadedcomment);
         console.log('servce ',cardData.service, cardData )
       }
