@@ -2,7 +2,7 @@
 import pyrebase
 from firebase.config import firebaseConfig
 from datetime import datetime
-import json
+import os
 
 
 firebase = pyrebase.initialize_app(firebaseConfig)
@@ -150,7 +150,7 @@ def get_all_service_providers():
     try:
         auth = firebase.auth()
         db = firebase.database()
-        user = auth.sign_in_with_email_and_password('khalid.mahsousi@gmail.com', 'mahsousi')
+        user = auth.sign_in_with_email_and_password(os.getenv('email'), os.getenv('password'))
         user = auth.refresh(user['refreshToken'])
         user_token = user['idToken']
         response = db.child('service_providers').get(user_token)
@@ -181,7 +181,7 @@ def get_user_data(user_id):
     try:
         auth = firebase.auth()
         db = firebase.database()
-        user = auth.sign_in_with_email_and_password('khalid.mahsousi@gmail.com', 'mahsousi')
+        user = auth.sign_in_with_email_and_password(os.getenv('email'), os.getenv('password'))
         user = auth.refresh(user['refreshToken'])
         user_token = user['idToken']
         user = db.child('service_providers').child(user_id).get(user_token)
@@ -213,13 +213,14 @@ def set_comments(comment, user_name, uid):
     try:
         auth = firebase.auth()
         db = firebase.database()
-        user = auth.sign_in_with_email_and_password('khalid.mahsousi@gmail.com', 'mahsousi')
+        user = auth.sign_in_with_email_and_password(os.getenv('email'), os.getenv('password'))
         data = {
             'user_name': user_name,
             'comment': comment,
             'date': datetime.now().strftime('%d-%m-%Y')
         }
-        db.child('comments').child(uid).push(data)
+        id_token = user['idToken']
+        db.child('comments').child(uid).push(data, id_token)
         return True
     except Exception as e:
         print('error',e)
@@ -229,13 +230,14 @@ def get_all_comments(uid):
     try:
         auth = firebase.auth()
         db = firebase.database()
-        user = auth.sign_in_with_email_and_password('khalid.mahsousi@gmail.com', 'mahsousi')
+        user = auth.sign_in_with_email_and_password(os.getenv('email'), os.getenv('password'))
         user = auth.refresh(user['refreshToken'])
-        service_id = db.child('comments').child(uid).get()
+        user_token = user['idToken']
+        response = db.child('comments').child(uid).get(user_token)
+        data = response.val()
         all_comments = []
-        if service_id:
-            for comments in service_id:
-                all_comments.append(comments.val())
+        for comment in data.values():
+            all_comments.append(comment)
         return all_comments
     except:
         return False
