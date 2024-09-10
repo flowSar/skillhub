@@ -15,8 +15,8 @@ function SearchResults() {
   const locationSearch =   localStorage.getItem('locationSearch');
 
 
-
   useEffect(() => {
+    // load all service providers from data base
     const loadData = async() => {
       const data = await loadAllServiceProviders();
       if (data) {
@@ -56,6 +56,7 @@ function SearchResults() {
   let filteredBySubService = [];
 
   if (searchKeyWord) {
+    // if the searck key work came from search bar will need to filter search for the keyword in body service and subservice
     filtredByService = cardsdata.filter((card) => {
       if (card.service.toLowerCase().includes(searchKeyWord) || card.sub_service.toLowerCase().includes(searchKeyWord)) {
         return true;
@@ -71,6 +72,7 @@ function SearchResults() {
       });
     }
   } else {
+    // this section if the keyword came from category 
     filtredByService = cardsdata.filter((card) => card.service === service);
     filtredByService.map((item) => {
       if (item.sub_service && typeof item.sub_service === 'string') {
