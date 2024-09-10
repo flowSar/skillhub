@@ -3,7 +3,7 @@ import pyrebase
 from firebase.config import firebaseConfig
 from datetime import datetime
 import json
-
+import os
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 
@@ -150,7 +150,7 @@ def get_all_service_providers():
     try:
         auth = firebase.auth()
         db = firebase.database()
-        user = auth.sign_in_with_email_and_password('khalid.mahsousi@gmail.com', 'mahsousi')
+        user = auth.sign_in_with_email_and_password(os.getenv('email'), os.getenv('password'))
         user = auth.refresh(user['refreshToken'])
         user_token = user['idToken']
         response = db.child('service_providers').get(user_token)
