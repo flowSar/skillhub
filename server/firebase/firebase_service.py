@@ -181,7 +181,7 @@ def get_user_data(user_id):
     try:
         auth = firebase.auth()
         db = firebase.database()
-        user = auth.sign_in_with_email_and_password('khalid.mahsousi@gmail.com', 'mahsousi')
+        user = auth.sign_in_with_email_and_password(os.getenv('email'), os.getenv('password'))
         user = auth.refresh(user['refreshToken'])
         user_token = user['idToken']
         user = db.child('service_providers').child(user_id).get(user_token)
@@ -213,7 +213,7 @@ def set_comments(comment, user_name, uid):
     try:
         auth = firebase.auth()
         db = firebase.database()
-        user = auth.sign_in_with_email_and_password('khalid.mahsousi@gmail.com', 'mahsousi')
+        user = auth.sign_in_with_email_and_password(os.getenv('email'), os.getenv('password'))
         data = {
             'user_name': user_name,
             'comment': comment,
@@ -230,7 +230,7 @@ def get_all_comments(uid):
     try:
         auth = firebase.auth()
         db = firebase.database()
-        user = auth.sign_in_with_email_and_password('khalid.mahsousi@gmail.com', 'mahsousi')
+        user = auth.sign_in_with_email_and_password(os.getenv('email'), os.getenv('password'))
         user = auth.refresh(user['refreshToken'])
         user_token = user['idToken']
         response = db.child('comments').child(uid).get(user_token)
