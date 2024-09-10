@@ -4,7 +4,6 @@ certifi==2024.8.30
 charset-normalizer==3.3.2
 click==8.1.7
 Flask==3.0.3
-Flask-Mail==0.10.0
 Flask-Session==0.8.0
 gcloud==0.17.0
 googleapis-common-protos==1.65.0
@@ -28,6 +27,6 @@ requests-toolbelt==0.7.0
 rsa==4.9
 setuptools==74.1.2
 six==1.16.0
-urllib3==2.2.2
+urllib3==1.26.20
 Werkzeug==3.0.4
 gunicorn
