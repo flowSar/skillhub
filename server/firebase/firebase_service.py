@@ -153,18 +153,15 @@ def get_all_service_providers():
         user = auth.sign_in_with_email_and_password('khalid.mahsousi@gmail.com', 'mahsousi')
         user = auth.refresh(user['refreshToken'])
         user_token = user['idToken']
-        users_id = db.child('service_providers').get(user_token)
-        data = []
-        if users_id:
-            for id in users_id:
-                service_providers = db.child('service_providers').child(id.key()).get(user_token)
-                user_data = {}
-                for sp in service_providers:
-                    user_data[sp.key()] = sp.val()
-                data.append(user_data)
-        return data
+        response = db.child('service_providers').get(user_token)
+        data = response.val()
+        jdata = []
+        for values in data.values():
+            jdata.append(values)
+
+        return jdata
     except Exception as e:
-        print('erro get all service providers')
+        print('erro get all service providers', e)
         return []
 
 def update_user_data(user_data):
