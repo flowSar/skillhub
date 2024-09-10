@@ -149,6 +149,7 @@ def sign_in():
         if sign_in == True:
             user_id = user['localId']
             session[str(user_id)] = str(user_id)
+            print('session', session.get(str(user_id)))
 
             return jsonify({'user_id': user_id}), 200
         else:
