@@ -1,6 +1,7 @@
 # Logs
 logs
 *.log
+user.txt
 
 .venv/
 ../service-providers-info
