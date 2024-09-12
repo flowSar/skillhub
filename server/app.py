@@ -10,6 +10,7 @@ app = Flask(__name__)
 CORS(app, supports_credentials=True)
 app.config['SESSION_TYPE'] = 'filesystem'  # Or 'redis', 'memcached' depending on what you use
 app.config['SECRET_KEY'] = 'ProfesstionalskillHub'
+app.config['SESSION_COOKIE_DOMAIN'] = 'skill-hub.site'
 Session(app)
 
 app.register_blueprint(app_view)
