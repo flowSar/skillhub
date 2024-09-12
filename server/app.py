@@ -7,7 +7,7 @@ from firebase.firebase_service import firebase, Customer, ServiceProvider, uploa
 from flask_mail import Mail, Message
 
 app = Flask(__name__)
-CORS(app, supports_credentials=True, origins=['http://localhost:5173'])
+CORS(app, supports_credentials=True, origins=['https://skillhub-delta.vercel.app/'])
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SECRET_KEY'] = 'ProfesstionalskillHub'
 app.config['SESSION_COOKIE_DOMAIN'] = 'skill-hub.site'
