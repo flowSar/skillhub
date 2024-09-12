@@ -161,6 +161,7 @@ def log_in():
     data = request.get_json()
     user_id = data.get('user_id')
     if user_id:
+        print('session: ', session.get(str(user_id)))
         if user_id == session.get(str(user_id)):
             return jsonify({}), 200
         else:
