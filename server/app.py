@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app, supports_credentials=True)
 app.config['SESSION_TYPE'] = 'filesystem'  # Or 'redis', 'memcached' depending on what you use
 app.config['SECRET_KEY'] = 'ProfesstionalskillHub'
-app.config['SESSION_COOKIE_SECURE'] = True  # Ensures cookies are only sent over HTTPS
+app.config['SESSION_COOKIE_SECURE'] = False  # Ensures cookies are only sent over HTTPS
 app.config['SESSION_COOKIE_DOMAIN'] = 'skill-hub.site'  # No 'https://', just the domain
 app.config['SESSION_COOKIE_SAMESITE'] = 'None'  # Allow cross-site cookies
 Session(app)
