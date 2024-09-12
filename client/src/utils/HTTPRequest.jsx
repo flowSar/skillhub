@@ -169,7 +169,7 @@ export async function getComments(data) {
 export async function updateProfile(data) {
   // this function will send data for updating the profile
   try {
-    const response = await fetch('http://localhost:3333/update_profile', {
+    const response = await fetch('https://skill-hub.site/update_profile', {
       method: 'POST',
       body: data,
     });

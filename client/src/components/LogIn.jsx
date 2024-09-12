@@ -23,7 +23,7 @@ const LogIn = ({ display, closeLogInWindows, lognInState}) => {
         logIn: true,
         userId: result.data['user_id'],
       })
-
+      window.location.reload();
     } else {
       alert('login failed');
     }
