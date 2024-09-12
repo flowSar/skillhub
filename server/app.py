@@ -8,11 +8,11 @@ from flask_mail import Mail, Message
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
-app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SESSION_TYPE'] = 'filesystem'  # Or 'redis', 'memcached' depending on what you use
 app.config['SECRET_KEY'] = 'ProfesstionalskillHub'
-app.config['SESSION_COOKIE_SECURE'] = True
-app.config['SESSION_COOKIE_DOMAIN'] = 'https://skill-hub.site/'
-app.config['SESSION_COOKIE_SAMESITE'] = 'None'
+app.config['SESSION_COOKIE_SECURE'] = True  # Ensures cookies are only sent over HTTPS
+app.config['SESSION_COOKIE_DOMAIN'] = 'skill-hub.site'  # No 'https://', just the domain
+app.config['SESSION_COOKIE_SAMESITE'] = 'None'  # Allow cross-site cookies
 Session(app)
 
 app.register_blueprint(app_view)
@@ -242,6 +242,15 @@ def contact():
 @app.route('/')
 def Home():
     return '<h1>hello world</h1>'
+
+@app.route('/set_session')
+def set_session():
+    session['user'] = 'John Doe'
+    return 'Session set!'
+
+@app.route('/get_session')
+def get_session():
+    return session.get('user', 'Session not set')
 
 if __name__ == '__main__':
     app.run(port=3333, debug=True)
