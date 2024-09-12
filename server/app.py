@@ -174,6 +174,8 @@ def log_out():
     data = request.get_json()
     user_id = data.get('user_id')
     if user_id:
+        print('loging state', session.get(str(user_id)))
+        print('login state user_id: ', user_id)
         if session.get(str(user_id)):
             session.pop(str(user_id), None)
             return jsonify({}), 200
