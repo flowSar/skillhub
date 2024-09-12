@@ -61,9 +61,9 @@ function SearchResults() {
       if (card.service.toLowerCase().includes(searchKeyWord) || card.sub_service.toLowerCase().includes(searchKeyWord)) {
         return true;
       }
-      return true;
+      return false;
     });
-    if (locationSearch) {
+    if (locationSearch !== '') {
       filtredByService = filtredByService.filter((card) => {
         if (card.city.toLowerCase().includes(locationSearch)) {
           return true
@@ -98,7 +98,7 @@ function SearchResults() {
       </div>
       { filtredByService.length === 0?
         <div className="h-screen flex justify-center items-center p-10  text-xl md:text-4xl text-slate-900">
-            <p className="bg-red-400 p-10">{service}/{subservice}: this service was not found</p>
+            <p className="bg-red-400 p-10">{service} {subservice} {searchKeyWord}: this service was not found</p>
         </div>
         :
         !subservice ?
