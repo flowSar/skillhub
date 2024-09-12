@@ -9,9 +9,10 @@ from flask_mail import Mail, Message
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 app.config['SESSION_TYPE'] = 'filesystem'
-app.config['SECRET_KEY'] = 'supersecretkey'
+app.config['SECRET_KEY'] = 'ProfesstionalskillHub'
 app.config['SESSION_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_DOMAIN'] = 'https://skill-hub.site/'
+app.config['SESSION_COOKIE_SAMESITE'] = 'None'
 Session(app)
 
 app.register_blueprint(app_view)

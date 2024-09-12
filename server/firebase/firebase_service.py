@@ -147,6 +147,8 @@ class ServiceProvider:
     
 
 def get_all_service_providers():
+    print('email', os.getenv('email'))
+    print('password', os.getenv('password'))
     try:
         auth = firebase.auth()
         db = firebase.database()
