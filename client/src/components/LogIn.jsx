@@ -27,7 +27,6 @@ const LogIn = ({ display, closeLogInWindows, lognInState}) => {
     } else {
       alert('login failed');
     }
-
   };
 
   return (
