@@ -1,5 +1,5 @@
 
-const servicesUrl = 'https://skillhub-1.onrender.com/api/users';
+const servicesUrl = 'https://skill-hub.site/api/users';
 
 // const [cards, setCards] = useState([]);
 

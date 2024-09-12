@@ -2,7 +2,7 @@
 
 export async function SignUp(data, userType) {
   try {
-    const response = await fetch(`https://skillhub-1.onrender.com/signup/${userType}`, {
+    const response = await fetch(`https://skill-hub.site/signup/${userType}`, {
       method: 'POST',
       body: data,
     });
@@ -24,7 +24,7 @@ export async function SignUp(data, userType) {
 
 export async function SingIn(data) {
   try {
-    const response = await fetch(`https://skillhub-1.onrender.com/signin`, {
+    const response = await fetch(`https://skill-hub.site/signin`, {
       method: 'POST',
       credentials: 'include',
       body: data,
@@ -51,7 +51,7 @@ export async function SingIn(data) {
 
 export async function LoadLogInState(data) {
   try {
-    const response = await fetch(`https://skillhub-1.onrender.com/loginStat`, {
+    const response = await fetch(`https://skill-hub.site/loginStat`, {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -74,7 +74,7 @@ export async function LoadLogInState(data) {
 
 export async function LogOut(data) {
   try {
-    const response = await fetch(`https://skillhub-1.onrender.com/logout`, {
+    const response = await fetch(`https://skill-hub.site/logout`, {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -96,7 +96,7 @@ export async function LogOut(data) {
 
 export async function getuserInfo() {
   try {
-    const response = await fetch('https://skillhub-1.onrender.com/user', {
+    const response = await fetch('https://skill-hub.site/user', {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -124,7 +124,7 @@ export async function getuserInfo() {
 
 export async function sendComment(data) {
   try {
-    const response = await fetch('https://skillhub-1.onrender.com/comment', {
+    const response = await fetch('https://skill-hub.site/comment', {
       method: 'POST',
       body: data,
     });
@@ -144,7 +144,7 @@ export async function sendComment(data) {
 
 export async function getComments(data) {
   try {
-    const response = await fetch('https://skillhub-1.onrender.com/comments', 
+    const response = await fetch('https://skill-hub.site/comments', 
       {
         method: 'POST',
         headers: {
