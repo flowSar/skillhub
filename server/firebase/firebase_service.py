@@ -147,6 +147,7 @@ class ServiceProvider:
     
 
 def get_all_service_providers():
+    """"this function for fetching all service provider from database"""
     print('email', os.getenv('email'))
     print('password', os.getenv('password'))
     try:
