@@ -23,7 +23,7 @@ const SignUpFreelancer = ({ display }) => {
   const [emailExistError, setEmailExistError] = useState("hidden");
   const [inputInsertError, setinputInsertError] = useState('hidden');
   const [subService, setSubservices] = useState([]);
-
+  const [isSignedUp , setIsSignedUp] = useState(false);
   const handleFirstNameChnage = (event) => setFirstName(event.target.value);
   const handlelastNameChange = (event) => setLastName(event.target.value);
   const handleEmailChange = (event) => setEmail(event.target.value);
@@ -97,6 +97,7 @@ const SignUpFreelancer = ({ display }) => {
   // this function handle sign up click
   const handleSignup = async () => {
     // when we click on sign up we call this fuction with data and usertype (customer, serviceProvider)
+    setIsSignedUp(true);
     if (firstName === ''
       ||lastName === ''
       ||email === ''
@@ -119,7 +120,9 @@ const SignUpFreelancer = ({ display }) => {
         setErrroVisible('block');
         alert(`Sign up failed try again ${result.rData}`);
         setEmailExistError('block');
+        setIsSignedUp(false);
       } else {
+        setIsSignedUp(false)
         alert('the account was created successfuly');
         setFirstName('');
         setLastName('');
@@ -137,11 +140,6 @@ const SignUpFreelancer = ({ display }) => {
     }
 
   };
-
-
-
-
-
 
   return (
     <>
@@ -334,7 +332,10 @@ const SignUpFreelancer = ({ display }) => {
             </div>
           </div>
           <div className="flex justify-center ">
-            <button className="button-style" onClick={handleSignup}>Sign up</button>
+            <button className="button-style" 
+            onClick={handleSignup}
+            disabled={isSignedUp}
+            >Sign up</button>
           </div>
           <div className="flex justify-center">
             <p>

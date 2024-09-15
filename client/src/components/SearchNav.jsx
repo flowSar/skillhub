@@ -14,7 +14,7 @@ const SearchNav = () => {
 
   const handleSearchBtnClick = () => {
     if (SearchWord === '') {
-      alert("plase ensure to insert the search key word");
+      alert("plase ensure to insert the service name keyword");
     } else {
       if (SearchWord.length < 3) {
         alert('search key wor to short');
@@ -26,8 +26,13 @@ const SearchNav = () => {
         navigate('/SearchResults');
       }
     }
-
   };
+
+  const handleKeyPressDown = (event) => {
+    if (event.key === 'Enter') {
+      handleSearchBtnClick();
+    }
+  }
 
   return (
     <>
@@ -38,6 +43,7 @@ const SearchNav = () => {
             placeholder="Enter service Name"
             className="w-[12rem] md:w-auto p-2 pl-6 rounded-md focus:outline-none"
             value={SearchWord}
+            onKeyDown={handleKeyPressDown}
             onChange={handlesearchBarChange}
           />
           <input 
@@ -45,6 +51,7 @@ const SearchNav = () => {
             placeholder="city"
             className="w-[9rem] md:w-auto p-2 pl-6 rounded-md focus:outline-none"
             value={locationSearch}
+            onKeyDown={handleKeyPressDown}
             onChange={handleLocationsearchChange}/>
           <button className="bg-[#fcfbfb] hover:bg-[#f5f4f4] font-medium p-2 md:p- md:px-6 lg:px-6 rounded-lg" onClick={handleSearchBtnClick}>
             <img src={SearcIcon} className="h-[2rem]" />

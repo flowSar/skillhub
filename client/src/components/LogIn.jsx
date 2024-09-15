@@ -7,6 +7,7 @@ const LogIn = ({ display, closeLogInWindows, lognInState}) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoged, setLoginState] = useState(false);
   const handleEmailChange = (event) => setEmail(event.target.value);
   const handlePasswordChange = (Event) => setPassword(Event.target.value); 
   const formData = new FormData();
@@ -14,11 +15,15 @@ const LogIn = ({ display, closeLogInWindows, lognInState}) => {
   formData.append('password', password);
 
   const handleLogInClick = async () => {
+    // this function handle sign up when sign log in button click
+    // we block the button until the log in succed ot failed
+    setLoginState(true);
     const result = await SingIn(formData);
     if (result) {
       console.log('log in result', result.data['user_id'])
       localStorage.setItem('email', email.split('@')[0]);
       localStorage.setItem('login', true);
+      // we send login state to the parent component App
       lognInState({
         logIn: true,
         userId: result.data['user_id'],
@@ -56,6 +61,7 @@ const LogIn = ({ display, closeLogInWindows, lognInState}) => {
           <button
             className="bg-red-400 px-8 py-[0.4rem] rounded-xl text-slate-900 hover:bg-red-600 hover:font-semibold hover:outline hover:outline-black js-login-submit hover:text-white"
             onClick={handleLogInClick}
+            disabled={isLoged}
           >
             Log in
           </button>
