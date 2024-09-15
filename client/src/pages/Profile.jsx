@@ -55,7 +55,6 @@ const Profile = () => {
   formData.append('country', country)
   formData.append('address', address)
   formData.append('working_days', workingDays)
-  formData.append('service', service)
   formData.append('sub_service', subService)
   formData.append('description', description)
   formData.append('uid', localStorage.getItem('user_id'));
@@ -218,15 +217,9 @@ const Profile = () => {
                 className="w-[20rem] md:w-[10rem] h-[2.5rem] p-2 text-center"
                 onChange={handleServiceChange}
               >
-              {subService.length === 0 ?
-              Object.keys(services).map((service, index) => (
-                <option key={index} value={service}>
-                  {service}
-                </option>
-              ))
-              :
-              <option>{service}</option>
-              }
+              <option>
+                {service}
+              </option>
             </select>
 
             <select className="w-[20rem] md:w-[10rem] h-[2.5rem] p-2 text-center " onChange={handleSubServiceSelected}>

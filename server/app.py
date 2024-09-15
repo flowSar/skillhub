@@ -115,7 +115,6 @@ def update_profile():
     country = request.form.get('country')
     working_days = request.form.get('working_days')
     description = request.form.get('description')
-    service = request.form.get('service')
     sub_service = request.form.get('sub_service')
     # profile_img = profile_img_url
     # thumbnail_img = thumbnail_img_url
@@ -131,7 +130,6 @@ def update_profile():
         "country": country,
         "working_days": working_days,
         "description": description,
-        "service": service,
         "sub_service":sub_service,
         # "profile_img": profile_img,
         # "thumbnail_img": thumbnail_img

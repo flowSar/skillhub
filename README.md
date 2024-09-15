@@ -79,8 +79,17 @@ You can check and access the live app at: [Skillhub](https://skill-hub.site)
      }
    }
    ```
+3. **Admin Account Setup (Critical for Testing):**
 
-3. **Backend Setup:**
+	To view the service providers' information, you need an authenticated user due to Firebase's security rules.
+	Create an admin account with email and password in Firebase.
+	Store the email and password in environment variables to access the service providers' data:
+	bash
+	Copy code
+	export email="your_email@example.com"
+	export password="your_password"
+	This step is necessary because Firebase rules allow only authenticated users to read the service providers' information.
+4. **Backend Setup:**
    - Navigate to the `server/` directory:
      ```bash
      cd server/
@@ -97,7 +106,7 @@ You can check and access the live app at: [Skillhub](https://skill-hub.site)
      ```
    - Backend should run on: `http://localhost:3333`
 
-4. **Frontend Setup:**
+5. **Frontend Setup:**
    - Navigate to the `client/` directory:
      ```bash
      cd client/
