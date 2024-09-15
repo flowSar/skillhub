@@ -9,11 +9,9 @@ const SingUpCustomer = ({ display }) => {
   const [errorDisplay, setErrorDisplay] = useState('hidden');
   const [genderInput, setGenderInput] = useState('');
   const handleUserNameChange = (event) => setUserNameInput(event.target.value);
-
   const handleEmailChange = (event) => setEmailInput(event.target.value);
   const handlePasswordChange = (event) => setPasswordInput(event.target.value);
   const [isSignedUp , setIsSignedUp] = useState(false);
-
   const handleGenderChange = (event) => setGenderInput(event.target.value);
 
   const formData = new FormData()

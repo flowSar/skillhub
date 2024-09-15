@@ -55,6 +55,8 @@ const Profile = () => {
   formData.append('country', country)
   formData.append('address', address)
   formData.append('working_days', workingDays)
+  formData.append('service', service)
+  formData.append('sub_service', subService)
   formData.append('description', description)
   formData.append('uid', localStorage.getItem('user_id'));
 
@@ -72,7 +74,21 @@ const Profile = () => {
     }
   };
 
-  const handleSubServiceSelected = () => {};
+  const handleSubServiceSelected = (event) => {
+    const value = event.target.value;
+    if (!subService.includes(value)) {
+      if (value !== '')
+        setSubservices([...subService, value]);
+    }
+  };
+
+  const removeSelectedService = (event) => {
+    const indexToRemove = +event.target.dataset.index;
+    const updatedSubService = subService.filter((item, index) => index !== indexToRemove);
+    // Update the state with the new array
+    setSubservices(updatedSubService);
+    console.log('cliked');
+  };
 
 
   useEffect(() => {
@@ -202,9 +218,15 @@ const Profile = () => {
                 className="w-[20rem] md:w-[10rem] h-[2.5rem] p-2 text-center"
                 onChange={handleServiceChange}
               >
-              <option value={service}>
-                {service}
-              </option>
+              {subService.length === 0 ?
+              Object.keys(services).map((service, index) => (
+                <option key={index} value={service}>
+                  {service}
+                </option>
+              ))
+              :
+              <option>{service}</option>
+              }
             </select>
 
             <select className="w-[20rem] md:w-[10rem] h-[2.5rem] p-2 text-center " onChange={handleSubServiceSelected}>
@@ -223,7 +245,7 @@ const Profile = () => {
                 subService.map((item, index) => (
                     <div className="flex  border border-slate-400 rounded-lg " key={`div${item}`}>
                     <p className="text-[0.8rem] p-[0.2rem]" key={`item${item}`}>{item}</p>
-                    <p className="cursor-pointer text-[0.8rem] p-[0.2rem]" key={`close${item}`} data-index={`${index}`}>x</p>
+                    <p className="cursor-pointer text-[0.8rem] p-[0.2rem]" onClick={removeSelectedService} key={`close${item}`} data-index={`${index}`}>x</p>
                   </div>
                 ))
               }
