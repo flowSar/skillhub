@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { SignUp } from '../utils/HTTPRequest.jsx'
-
 import { services } from "../data/services.js";
 import { Link } from "react-router-dom";
+import ThumbnailImg from "../assets/upload.png"
 
 const SignUpFreelancer = ({ display }) => {
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'friday', 'saturday', 'sunday'];
@@ -40,11 +40,26 @@ const SignUpFreelancer = ({ display }) => {
       setWorkingDays(workingDays.filter((item) => item !== value));
     }
   }
-  const handleProfileImageChange = (event) => setProfileImage(event.target.files[0]);
-  const handleThumbnailImageChange = (event) => setThumbnailImage(event.target.files[0]);
+
   const handleServiceChange = (event) => setSevice(event.target.value);
   const handleGenderChange = (event) => setGender(event.target.value);
   const handleDescriptionChange = (event) => setDescription(event.target.value);
+
+  const [thumbnailImageName, setThumbnailImageName] = useState("");
+  const [profileImgName, setProfileImgName] = useState("");
+  const SelectThumbnailImg = (event) => {
+      const filePath = event.target.value.split('\\');
+      const name = filePath[filePath.length - 1]
+      setThumbnailImageName(name);
+      setThumbnailImage(event.target.files[0]);
+  };
+
+  const SelectProfileImg = (event) => {
+      const filePath1 = event.target.value.split('\\');
+      const name1 = filePath1[filePath1.length - 1]
+      setProfileImgName(name1);
+      setProfileImage(event.target.files[0]);
+  };
 
   const handleSubServiceSelected = (event) => {
     const value = event.target.value;
@@ -122,6 +137,11 @@ const SignUpFreelancer = ({ display }) => {
     }
 
   };
+
+
+
+
+
 
   return (
     <>
@@ -230,16 +250,27 @@ const SignUpFreelancer = ({ display }) => {
               ))}
             </div>
           </div>
-          <div className="flex flex-col w-[20rem] md:w-auto border-t-2 border-t-slate-600 pt-2">
-            <label>
-            Upload Profile Image:
-              <input type="file" name="profile" accept="image/*" className="ml-4" onChange={handleProfileImageChange}/>
-            </label>
-            <label className="my-2">
-            Upload Thumbnail for Service: 
-              <input type="file" name="thumbnail" accept="image/*" required className="ml-4" onChange={handleThumbnailImageChange}/>
-            </label>
-          </div>
+
+          <div className='flex flex-col md:flex-row bg-red-50 justify-center'>
+            <div className='bg-[#dfdfdf] flex flex-col items-center m-2 p-2 w-[16rem]'>
+                <p className='text-[0.8rem]'>Upload Thumbail</p>
+                <input type="file" id="thumbnail" className='hidden' onChange={SelectThumbnailImg} accept="image/*"/>
+                <label htmlFor="thumbnail" className="cursor-pointer">
+                    <img src={ThumbnailImg} className='h-[3rem]'/>
+                </label>
+                <p className='text-center w-[16rem] text-[0.9rem]'>{thumbnailImageName === ''? "no file selected": thumbnailImageName}</p>
+                
+            </div>
+            <div className='bg-[#fff6f6] flex flex-col items-center m-2 p-2 w-[16rem]'>
+                <p className='text-[0.8rem]'>Upload Profile</p>
+                <input type="file" id="profile" className='hidden' accept="image/*" onChange={SelectProfileImg}/>
+                <label htmlFor="profile" className="cursor-pointer">
+                    <img src={ThumbnailImg} className='h-[3rem]'/>
+                </label>
+                <p className='text-center w-[16rem] text-[0.9rem]'>{profileImgName === ''? "no file selected": profileImgName}</p>
+            </div>
+        </div>
+
           <div className="space-y-2 md:flex-row gap-2 items-center w-[20rem] md:w-auto border-t-2 border-t-slate-600">
               <select
                 id="services"

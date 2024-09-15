@@ -10,6 +10,7 @@ import Profile from "./pages/Profile.jsx";
 import Categories from "./pages/Categories.jsx";
 import Service from "./pages/Service.jsx";
 import SearchResults from "./pages/SearchResults.jsx";
+import TestPage from "./pages/TestPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,9 @@ const router = createBrowserRouter([
   {
     path: "/SearchResults",
     element: <SearchResults />
+  }, {
+    path: "/TestPage",
+    element: <TestPage />
   }
 ]);
 

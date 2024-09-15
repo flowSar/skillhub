@@ -13,7 +13,7 @@ const SimpleHeader = () => {
         <div>
           <ul className="horizontal-list">
             <li>
-              <Link to="/contact">Contact</Link>
+              <Link to="/TestPage">Contact</Link>
             </li>
             <li>
               <Link to="/about">about</Link>
