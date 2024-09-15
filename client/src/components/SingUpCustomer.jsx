@@ -12,6 +12,7 @@ const SingUpCustomer = ({ display }) => {
 
   const handleEmailChange = (event) => setEmailInput(event.target.value);
   const handlePasswordChange = (event) => setPasswordInput(event.target.value);
+  const [isSignedUp , setIsSignedUp] = useState(false);
 
   const handleGenderChange = (event) => setGenderInput(event.target.value);
 
@@ -24,19 +25,23 @@ const SingUpCustomer = ({ display }) => {
   const navigate = useNavigate();
 
   const handleSignUp = async () => {
+    setIsSignedUp(true);
     if (userNameInput === '' || emailInput === '' || passwordInput === '' || genderInput === '') {
       alert('(missing info) please be sure to insert all necessary information');
+      setIsSignedUp(false);
     } else {
       const result = await SignUp(formData, 'customer');
       if (!result) {
         setErrorDisplay('block');
         alert('sign up failed, try again');
+        setIsSignedUp(false);
       } else {
         setUserNameInput('');
         setEmailInput('');
         setPasswordInput('');
         setGenderInput('');
         navigate('/');
+        setIsSignedUp(false);
       }
     }
   };
@@ -83,7 +88,10 @@ const SingUpCustomer = ({ display }) => {
                   <option>Female</option>
             </select>
           </div>
-          <button className="button-style" onClick={handleSignUp}>
+          <button className="button-style" 
+          onClick={handleSignUp}
+          disabled={isSignedUp}
+          >
             Sign up
           </button>
           <p>
