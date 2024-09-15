@@ -199,7 +199,10 @@ def upload_img(path, image):
     if image:
         storage = firebase.storage()
         try:
-            storage.child(path).put(image)
+            auth = firebase.auth()
+            user = auth.sign_in_with_email_and_password(os.getenv('email'), os.getenv('password'))
+            user_token = user['idToken']
+            storage.child(path).put(image, user_token)
             image_url = storage.child(path).get_url(image)
             return image_url
         except Exception as e:
