@@ -33,6 +33,7 @@ const Profile = () => {
   const navigate = useNavigate()
   const [dataLoaded, setDateLoaded] = useState(false);
   const handleDaysChange = (event) => {
+    // get all days that was selected and store them in an array
     const { value, checked } = event.target;
     if (checked) {
       setWorkingDays([...workingDays, value]);
@@ -74,6 +75,7 @@ const Profile = () => {
   };
 
   const handleSubServiceSelected = (event) => {
+    // handle select of the service
     const value = event.target.value;
     if (!subService.includes(value)) {
       if (value !== '')
@@ -82,6 +84,7 @@ const Profile = () => {
   };
 
   const removeSelectedService = (event) => {
+    // handle service select , remove the service the was selected from the list
     const indexToRemove = +event.target.dataset.index;
     const updatedSubService = subService.filter((item, index) => index !== indexToRemove);
     // Update the state with the new array
@@ -91,6 +94,7 @@ const Profile = () => {
 
 
   useEffect(() => {
+    // fetch all user data from database
     const fetchData = async () => {
       const data = await getuserInfo();
       if (data) {

@@ -48,6 +48,7 @@ const SignUpFreelancer = ({ display }) => {
   const [thumbnailImageName, setThumbnailImageName] = useState("");
   const [profileImgName, setProfileImgName] = useState("");
   const SelectThumbnailImg = (event) => {
+    // get image from local compoter and save it to variable state
       const filePath = event.target.value.split('\\');
       const name = filePath[filePath.length - 1]
       setThumbnailImageName(name);
@@ -55,6 +56,7 @@ const SignUpFreelancer = ({ display }) => {
   };
 
   const SelectProfileImg = (event) => {
+    // get image from local compoter and save it to variable state
       const filePath1 = event.target.value.split('\\');
       const name1 = filePath1[filePath1.length - 1]
       setProfileImgName(name1);
@@ -62,6 +64,7 @@ const SignUpFreelancer = ({ display }) => {
   };
 
   const handleSubServiceSelected = (event) => {
+    // handle service select
     const value = event.target.value;
     if (!subService.includes(value)) {
       if (value !== '')
@@ -70,6 +73,7 @@ const SignUpFreelancer = ({ display }) => {
   };
 
   const removeSelectedService = (event) => {
+    // remove service from the list
     const indexToRemove = +event.target.dataset.index;
     const updatedSubService = subService.filter((item, index) => index !== indexToRemove);
     // Update the state with the new array

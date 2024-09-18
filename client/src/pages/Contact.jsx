@@ -13,6 +13,7 @@ const Contact = () => {
   const handleSubjectChange = (event) => setSubject(event.target.value);
 
   const sendEmail = async () => {
+    // send comment to the database
     if(email === '' || subject === '' || message === '') {
       alert('plaese be sure to insert all necessay information');
     } else {

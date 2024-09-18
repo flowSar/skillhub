@@ -1,9 +1,8 @@
 
 const servicesUrl = 'https://skillhub-1.onrender.com/api/users';
 
-// const [cards, setCards] = useState([]);
-
 export const loadAllServiceProviders = async () => {
+  // load all service providers data from database
   const response = await fetch(servicesUrl);
 
   if (response.ok) {
@@ -14,63 +13,4 @@ export const loadAllServiceProviders = async () => {
   }
 };
 
-
 export const cards = [];
-// export const cards = [
-//   {
-//     thumbnail_img: thumbnail,
-//     profile_img: ProfileImg,
-//     name: "brahim sar",
-//     description:
-//       "I will create high converting shopify dropshipping store or website",
-//     rating: "4.5",
-//   },
-//   {
-//     thumbnail_img: thumbnail,
-//     profile_img: ProfileImg,
-//     name: "brahim sar",
-//     description:
-//       "I will create high converting shopify dropshipping store or website",
-//     rating: "4.5",
-//   },
-//   {
-//     thumbnail_img: thumbnail,
-//     profile_img: ProfileImg,
-//     name: "brahim sar",
-//     description:
-//       "I will create high converting shopify dropshipping store or website",
-//     rating: "4.5",
-//   },
-//   {
-//     thumbnail_img: thumbnail,
-//     profile_img: ProfileImg,
-//     name: "brahim sar",
-//     description:
-//       "I will create high converting shopify dropshipping store or website",
-//     rating: "4.5",
-//   },
-//   {
-//     thumbnail_img: thumbnail,
-//     profile_img: ProfileImg,
-//     name: "brahim sar",
-//     description:
-//       "I will create high converting shopify dropshipping store or website",
-//     rating: "4.5",
-//   },
-//   {
-//     thumbnail_img: thumbnail,
-//     profile_img: ProfileImg,
-//     name: "brahim sar",
-//     description:
-//       "I will create high converting shopify dropshipping store or website",
-//     rating: "4.5",
-//   },
-//   {
-//     thumbnail_img: thumbnail,
-//     profile_img: ProfileImg,
-//     name: "brahim sar",
-//     description:
-//       "I will create high converting shopify dropshipping store or website",
-//     rating: "4.5",
-//   },
-// ];

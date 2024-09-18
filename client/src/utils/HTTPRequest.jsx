@@ -1,6 +1,8 @@
 
 
 export async function SignUp(data, userType) {
+  // sing up : this function will send a reques to the back end to regesiter the user in the database with it info
+  // that was sent in the body of the request
   try {
     const response = await fetch(`https://skillhub-1.onrender.com/signup/${userType}`, {
       method: 'POST',
@@ -24,6 +26,7 @@ export async function SignUp(data, userType) {
 }
 
 export async function SingIn(data) {
+  // sign in send sign in request to the backend 
   try {
     const response = await fetch(`https://skillhub-1.onrender.com/signin`, {
       method: 'POST',
@@ -51,6 +54,7 @@ export async function SingIn(data) {
 
 
 export async function LoadLogInState(data) {
+  // fetch log in state from backend , this function will send requet to the back end to check if this user still logged in
   try {
     const response = await fetch(`https://skillhub-1.onrender.com/loginStat`, {
       method: 'POST',
@@ -74,6 +78,7 @@ export async function LoadLogInState(data) {
 
 
 export async function LogOut(data) {
+  // sent request to backend to logout the user
   try {
     const response = await fetch(`https://skillhub-1.onrender.com/logout`, {
       method: 'POST',
@@ -96,6 +101,7 @@ export async function LogOut(data) {
 }
 
 export async function getuserInfo() {
+  // get user info using user_id the was sent to the backedn via http hbody
   try {
     const response = await fetch('https://skillhub-1.onrender.com/user', {
       method: 'POST',
@@ -124,6 +130,7 @@ export async function getuserInfo() {
 
 
 export async function sendComment(data) {
+  // add comment to the database
   try {
     const response = await fetch('https://skillhub-1.onrender.com/comment', {
       method: 'POST',
@@ -144,6 +151,7 @@ export async function sendComment(data) {
 
 
 export async function getComments(data) {
+  // fetch all comments from database
   try {
     const response = await fetch('https://skillhub-1.onrender.com/comments', 
       {

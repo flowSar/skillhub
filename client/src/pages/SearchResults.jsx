@@ -82,6 +82,7 @@ function SearchResults() {
     });
   
     filteredBySubService = filtredByService.filter((card) => {
+      // filter by sub serbservice
       if (card.sub_service.includes(subservice)) {
         return true
       }
