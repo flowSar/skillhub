@@ -124,6 +124,10 @@ You can check and access the live app at: [Skillhub](https://skill-hub.site)
      ```
    - Open the app in your browser at: `http://localhost:5173/`
 
+## License
+
+This project is licensed under the MIT License. Feel free to use and modify it for your own projects.
+
 ## Contributing
 
 Feel free to contribute to this project by creating issues or submitting pull requests.
