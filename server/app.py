@@ -29,6 +29,7 @@ mail = Mail(app)
 
 @app.route('/signup/serviceProvider', strict_slashes=False, methods=['POST'])
 def sign_up():
+    """sign up for service providers"""
     thumbnail_img = request.files.get('thumbnail_img')
     profile_img = request.files.get('profile_img')
     first_name = request.form.get('first_name')
@@ -79,6 +80,7 @@ def sign_up():
 
 @app.route('/signup/customer', strict_slashes=False, methods=['POST'])
 def sign_up_customer():
+        """sign up for customer/client"""
         email = request.form.get('email')
         user_name = request.form.get('user_name')
         password = request.form.get('password')
@@ -100,6 +102,7 @@ def sign_up_customer():
 
 @app.route('/update_profile', strict_slashes=False, methods=['POST'])
 def update_profile():
+    """update user profile infor route"""
     uid = request.form.get('uid')
     # thumbnail_img = request.files.get('thumbnail_img')
     # profile_img = request.files.get('profile_img')
@@ -144,6 +147,7 @@ def update_profile():
 
 @app.route('/signin', strict_slashes=False, methods=['GET','POST'])
 def sign_in():
+    """sign in route"""
     auth = firebase.auth()
     email = request.form.get('email')
     password = request.form.get('password')
@@ -164,6 +168,7 @@ def sign_in():
 
 @app.route('/loginStat', strict_slashes=False, methods=['GET','POST'])
 def log_in():
+    """log in route"""
     data = request.get_json()
     user_id = data.get('user_id')
     if user_id:
@@ -177,6 +182,7 @@ def log_in():
 
 @app.route('/logout', strict_slashes=False, methods=['GET','POST'])
 def log_out():
+    """log out route"""
     data = request.get_json()
     user_id = data.get('user_id')
     if user_id:
@@ -248,16 +254,8 @@ def contact():
 
 @app.route('/')
 def Home():
+    """home route"""
     return '<h1>hello world</h1>'
-
-@app.route('/set_session')
-def set_session():
-    session['user'] = 'John Doe'
-    return 'Session set!'
-
-@app.route('/get_session')
-def get_session():
-    return session.get('user', 'Session not set')
 
 if __name__ == '__main__':
     app.run(port=3333, debug=True)

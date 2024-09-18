@@ -23,6 +23,7 @@ class Customer:
     
 
     def create_user(self):
+        """create user"""
         try:
             user = self.auth.create_user_with_email_and_password(self.__email, self.__password)
             if user:
@@ -33,6 +34,7 @@ class Customer:
             return False
     
     def sign_in(self):
+        """sign in"""
         try:
             user = self.auth.sign_in_with_email_and_password(self.__email, self.__password)
             return user
@@ -41,6 +43,7 @@ class Customer:
 
 
     def create_account(self, user):
+        """create account"""
         try:
             id_token = user['idToken']
             uid = user['localId']
@@ -96,6 +99,7 @@ class ServiceProvider:
         self.db = firebase.database()
 
     def create_user(self):
+        """create user account"""
         try:
             user = self.auth.create_user_with_email_and_password(self.__email, self.__password)
             print('crete user in function', user)
@@ -108,6 +112,7 @@ class ServiceProvider:
             return False
 
     def sign_in(self):
+        """sign in """
         try:
             user = self.auth.sign_in_with_email_and_password(self.__email, self.__password)
             return user
@@ -115,6 +120,7 @@ class ServiceProvider:
             return False
 
     def create_account(self, user):
+        """create nre account if doesn;t exist"""
         try:
             # user = self.auth.refresh(user['refreshToken'])
             id_token = user['idToken']
@@ -168,6 +174,7 @@ def get_all_service_providers():
         return []
 
 def update_user_data(user_data):
+    """update user data in the firebase"""
     try:
         auth = firebase.auth()
         db = firebase.database()
@@ -181,6 +188,7 @@ def update_user_data(user_data):
         return False
 
 def get_user_data(user_id):
+    """fetch user data from firebase """
     try:
         auth = firebase.auth()
         db = firebase.database()
@@ -197,6 +205,7 @@ def get_user_data(user_id):
 
 
 def upload_img(path, image):
+    """uplat user profile image and thumbnail to the firebase storage"""
     if image:
         storage = firebase.storage()
         try:
@@ -208,12 +217,12 @@ def upload_img(path, image):
             return image_url
         except Exception as e:
             print(f"errro uplading image: {e}")
- 
     else:
         return None
 
 
 def set_comments(comment, user_name, uid):
+    """save user commant to the database"""
     try:
         auth = firebase.auth()
         db = firebase.database()
@@ -231,6 +240,7 @@ def set_comments(comment, user_name, uid):
         return False
 
 def get_all_comments(uid):
+    """fetch all comment from database based on the service """
     try:
         auth = firebase.auth()
         db = firebase.database()
@@ -246,11 +256,4 @@ def get_all_comments(uid):
     except Exception as e:
         print('error gettingcomment', e)
         return False
-
-
-
-# user = User("khalid mahsousi", "khalid.mahsousi@gmail.com", '123456789')
-# user.create_user()
-# user.create_account()
-# sv = ServiceProvider('ali', 'sata', 'ali.sata@gmail.com', 'werr567er', 'agadir ait mezal', '069876543224', 'agadir', 'morocco', ['monday', 'friday', 'saturday', 'sunday'], ['cleaning Homes', 'cleaning cars'], 'I work deligently')
 
